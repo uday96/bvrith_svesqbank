@@ -1,0 +1,61 @@
+<resources>
+
+    <string name="app_name">BVRITH SVESQBank</string>
+
+    <string name="login_username">Username</string>
+    <string name="button_login">Login</string>
+    <string name="login_pwd">Password</string>
+    <string name="login_forgotpwd">Forgot Password</string>
+    <string name="login_resetpwd">Reset Password</string>
+    <string name="button_signup">Create Account</string>
+
+    <string name="signup_fullname">Full Name</string>
+    <string name="signup_rollno">Roll Number / Faculty ID</string>
+    <string name="signup_clg_prompt">Choose College</string>
+    <string-array name="signup_clg">
+        <item>BVRITH</item>
+        <item>SVECW</item>
+        <item>VIT</item>
+        <item>BVRITN</item>
+    </string-array>
+    <string name="signup_role_prompt">Choose Role</string>
+    <string-array name="signup_role">
+        <item>Student</item>
+        <item>Faculty</item>
+        <item>Principal/Director</item>
+    </string-array>
+    <string name="signup_email">Mail ID</string>
+    <string name="signup_mobile">Mobile Number</string>
+    <string name="dept_prompt">Choose Dept</string>
+    <string-array name="dept_list">
+        <item>CSE/IT</item>
+        <item>ECE</item>
+        <item>EEE</item>
+        <item>MECH</item>
+        <item>CIVIL</item>
+    </string-array>
+    <string name="signup_sec_prompt">Choose Section</string>
+    <string-array name="signup_sec">
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>D</item>
+        <item>E</item>
+    </string-array>
+    <string name="signup_uname">Login Username</string>
+    <string name="signup_pwd">Password</string>
+    <string name="button_signup_create">Create</string>
+    <string name="button_signup_clear">Clear</string>
+    <string name="button_fetch_que">Go</string>
+
+    <string name="subj_prompt">Choose Subject</string>
+    <string name="level_prompt">Choose Level</string>
+    <string-array name="level_list">
+        <item>Easy</item>
+        <item>Medium</item>
+        <item>Hard</item>
+    </string-array>
+    <string name="welcome_uname">Hello,</string>
+    <string name="logout">Logout</string>
+    <string name="button_cancel">Cancel</string>
+</resources>

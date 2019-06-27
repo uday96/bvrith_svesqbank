@@ -1,240 +1,260 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/ScrollView01"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:fillViewport="true"
+        android:scrollbars="none"
         tools:context=".ui.activities.SignupActivity">
 
     <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp">
+            android:layout_height="match_parent"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_10sdp">
 
-        <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/signup_fullname"
-                    android:id="@+id/editText_signup_fullname"/>
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:paddingStart="@dimen/_5sdp"
+                    android:paddingEnd="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_32sdp"
+                    android:layout_marginBottom="@dimen/_32sdp">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-        <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/signup_fullname"
+                            android:id="@+id/editText_signup_fullname"/>
 
-            <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/signup_rollno"
-                    android:id="@+id/editText_signup_rollno"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_7sdp">
 
-        <!--<LinearLayout-->
-                <!--android:orientation="horizontal"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:gravity="center"-->
-                <!--android:layout_marginTop="8dp">-->
-                <!--&lt;!&ndash;<Spinner&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:id="@+id/spinner_signup_clg"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:entries="@array/signup_clg"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:spinnerMode="dialog"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:prompt="@string/signup_clg_prompt"/>&ndash;&gt;-->
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/signup_rollno"
+                            android:id="@+id/editText_signup_rollno"/>
 
-                <!--&lt;!&ndash;<Spinner&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:id="@+id/spinner_signup_role"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:entries="@array/signup_role"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:spinnerMode="dialog"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:prompt="@string/signup_role_prompt"/>&ndash;&gt;-->
-        <!--</LinearLayout>-->
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/signup_clg_prompt"
-                android:layout_marginTop="8dp">
+                <!--<LinearLayout-->
+                        <!--android:orientation="horizontal"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:gravity="center"-->
+                        <!--android:layout_marginTop="8dp">-->
+                        <!--&lt;!&ndash;<Spinner&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:id="@+id/spinner_signup_clg"&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:entries="@array/signup_clg"&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:spinnerMode="dialog"&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:prompt="@string/signup_clg_prompt"/>&ndash;&gt;-->
 
-            <AutoCompleteTextView
-                    android:id="@+id/spinner_signup_clg"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:editable="false"/>
+                        <!--&lt;!&ndash;<Spinner&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:id="@+id/spinner_signup_role"&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:entries="@array/signup_role"&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:spinnerMode="dialog"&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:prompt="@string/signup_role_prompt"/>&ndash;&gt;-->
+                <!--</LinearLayout>-->
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/signup_clg_prompt"
+                        android:layout_marginTop="@dimen/_7sdp">
 
-        <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/signup_role_prompt"
-                android:layout_marginTop="8dp">
+                    <AutoCompleteTextView
+                            android:id="@+id/spinner_signup_clg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:editable="false"/>
 
-            <AutoCompleteTextView
-                    android:id="@+id/spinner_signup_role"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:editable="false"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/signup_role_prompt"
+                        android:layout_marginTop="@dimen/_7sdp">
 
-        <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
+                    <AutoCompleteTextView
+                            android:id="@+id/spinner_signup_role"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:editable="false"/>
 
-            <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/signup_email"
-                    android:id="@+id/editText_signup_email"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_7sdp">
 
-        <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/signup_email"
+                            android:id="@+id/editText_signup_email"/>
 
-            <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/signup_mobile"
-                    android:id="@+id/editText_signup_mobile"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_7sdp">
 
-        <!--<LinearLayout-->
-                <!--android:orientation="horizontal"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:gravity="center"-->
-                <!--android:layout_marginTop="8dp">-->
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/signup_mobile"
+                            android:id="@+id/editText_signup_mobile"/>
 
-            <!--<Spinner-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:id="@+id/spinner_signup_dept"-->
-                    <!--android:entries="@array/dept_list"-->
-                    <!--android:spinnerMode="dialog"-->
-                    <!--android:prompt="@string/dept_prompt"/>-->
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <!--<Spinner-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:id="@+id/spinner_signup_sec"-->
-                    <!--android:entries="@array/signup_sec"-->
-                    <!--android:spinnerMode="dialog"-->
-                    <!--android:prompt="@string/signup_sec_prompt"/>-->
-        <!--</LinearLayout>-->
+                <!--<LinearLayout-->
+                        <!--android:orientation="horizontal"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:gravity="center"-->
+                        <!--android:layout_marginTop="8dp">-->
 
-        <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/dept_prompt"
-                android:layout_marginTop="8dp">
+                    <!--<Spinner-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:id="@+id/spinner_signup_dept"-->
+                            <!--android:entries="@array/dept_list"-->
+                            <!--android:spinnerMode="dialog"-->
+                            <!--android:prompt="@string/dept_prompt"/>-->
 
-            <AutoCompleteTextView
-                    android:id="@+id/spinner_signup_dept"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:editable="false"/>
+                    <!--<Spinner-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:id="@+id/spinner_signup_sec"-->
+                            <!--android:entries="@array/signup_sec"-->
+                            <!--android:spinnerMode="dialog"-->
+                            <!--android:prompt="@string/signup_sec_prompt"/>-->
+                <!--</LinearLayout>-->
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/dept_prompt"
+                        android:layout_marginTop="@dimen/_7sdp">
 
-        <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/signup_sec_prompt"
-                android:layout_marginTop="8dp">
+                    <AutoCompleteTextView
+                            android:id="@+id/spinner_signup_dept"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:editable="false"/>
 
-            <AutoCompleteTextView
-                    android:id="@+id/spinner_signup_sec"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:editable="false"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/signup_sec_prompt"
+                        android:layout_marginTop="@dimen/_7sdp">
 
-        <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
+                    <AutoCompleteTextView
+                            android:id="@+id/spinner_signup_sec"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:editable="false"/>
 
-            <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/signup_uname"
-                    android:id="@+id/editText_signup_uname"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_7sdp">
 
-        <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/signup_uname"
+                            android:id="@+id/editText_signup_uname"/>
 
-            <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:hint="@string/signup_pwd"
-                    android:id="@+id/editText_signup_pwd"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:id="@+id/signup_password_text_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_7sdp">
 
-        <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginTop="8dp">
-            <Button
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:id="@+id/button_signup_clear"
-                    android:text="@string/button_signup_clear"
-                    app:iconPadding="2dp"
-                    app:cornerRadius="16dp"
-                    app:icon="@drawable/ic_cancel_black_24dp"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
-            <Button
-                    style="@style/Widget.MaterialComponents.Button"
-                    android:id="@+id/button_signup_create"
-                    android:text="@string/button_signup_create"
-                    app:iconPadding="2dp"
-                    app:cornerRadius="16dp"
-                    app:icon="@drawable/ic_done_black_24dp"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
-        </LinearLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPassword"
+                            android:hint="@string/signup_pwd"
+                            android:id="@+id/editText_signup_pwd"/>
 
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_below="@+id/signup_password_text_input"
+                        android:layout_marginTop="@dimen/_7sdp">
+
+                    <com.google.android.material.button.MaterialButton
+                            style="@style/Widget.MaterialComponents.Button.TextButton"
+                            android:id="@+id/button_signup_clear"
+                            android:text="@string/button_signup_clear"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:iconPadding="2dp"
+                            app:cornerRadius="16dp"
+                            app:icon="@drawable/ic_cancel_black_24dp"/>
+
+                    <com.google.android.material.button.MaterialButton
+                            style="@style/Widget.MaterialComponents.Button"
+                            android:id="@+id/button_signup_create"
+                            android:text="@string/button_signup_create"
+                            android:layout_toEndOf="@+id/button_signup_clear"
+                            android:layout_toRightOf="@+id/button_signup_clear"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:iconPadding="2dp"
+                            app:cornerRadius="16dp"
+                            app:icon="@drawable/ic_done_black_24dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginLeft="16dp"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
-</RelativeLayout>
+</ScrollView>

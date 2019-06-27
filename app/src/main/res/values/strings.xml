@@ -46,7 +46,7 @@
     <string name="signup_pwd">Password</string>
     <string name="button_signup_create">Create</string>
     <string name="button_signup_clear">Clear</string>
-    <string name="button_fetch_que">Go</string>
+    <string name="button_fetch_que">Get Questions</string>
 
     <string name="subj_prompt">Choose Subject</string>
     <string name="level_prompt">Choose Level</string>
@@ -58,4 +58,6 @@
     <string name="welcome_uname">Hello,</string>
     <string name="logout">Logout</string>
     <string name="button_cancel">Cancel</string>
+    <string name="title">SVES Question Bank</string>
+    <string name="signup_title">Create Account</string>
 </resources>

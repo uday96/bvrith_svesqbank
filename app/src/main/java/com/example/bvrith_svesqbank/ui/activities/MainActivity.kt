@@ -1,16 +1,18 @@
 package com.example.bvrith_svesqbank.ui.activities
 
-import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.bvrith_svesqbank.R
+import com.example.bvrith_svesqbank.api.ConnectivityUtils
 import com.example.bvrith_svesqbank.api.WebServiceUtil
 import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
@@ -47,6 +49,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val actionBar = supportActionBar
+        actionBar?.hide()
+
+
         // get reference to all views
         var et_username = findViewById(R.id.editText_login_username) as EditText
         var et_password = findViewById(R.id.editText_login_pwd) as EditText
@@ -61,21 +67,18 @@ class MainActivity : AppCompatActivity() {
             val uname = et_username.text.toString()
             val pwd = et_password.text.toString()
 
-            // your code to validate the user_name and password combination
-            // and verify the same
-            if (isNetworkConnected()) {
+            if (ConnectivityUtils.isConnected(this)) {
 //                webService.login(uname,pwd,callback)
                 val fetchQueIntent = Intent(this@MainActivity, FetchQuestions::class.java);
                 fetchQueIntent.putExtra("uname", uname)
                 startActivity(fetchQueIntent);
             } else {
-//                AlertDialog.Builder(this).setTitle("No Internet Connection")
-//                    .setMessage("Please check your internet connection and try again")
-//                    .setPositiveButton(android.R.string.ok) { _, _ -> }
-//                    .setIcon(android.R.drawable.ic_dialog_alert).show()
-                Snackbar.make(findViewById(R.id.constraintLayout), "No Internet Connection: Please check your internet connection and try again", Snackbar.LENGTH_LONG).show()
+                AlertDialog.Builder(this).setTitle("No Internet Connection")
+                    .setMessage("Please check your internet connection and try again")
+                    .setPositiveButton(android.R.string.ok) { _, _ -> }
+                    .setIcon(android.R.drawable.ic_dialog_alert).show()
+//                Snackbar.make(findViewById(R.id.constraintLayout), "No Internet Connection: Please check your internet connection and try again", Snackbar.LENGTH_LONG).show()
             }
-
         }
 
         btn_signup.setOnClickListener{
@@ -96,10 +99,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun isNetworkConnected(): Boolean {
-        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkInfo = connectivityManager.activeNetworkInfo
-        return networkInfo != null && networkInfo.isConnected
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.action_bar_menu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle presses on the action bar menu items
+        when (item.itemId) {
+            R.id.menu_logout -> {
+                Log.d("Main","Logout")
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }

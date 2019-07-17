@@ -1,10 +1,10 @@
 package com.example.bvrith_svesqbank.api
 
+import com.example.bvrith_svesqbank.data.Questions
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Callback
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class WebServiceUtil {
@@ -21,10 +21,12 @@ class WebServiceUtil {
         val httpClient = OkHttpClient.Builder()
         httpClient.addInterceptor(logging)
 
+//        val gson : Gson = GsonBuilder().setLenient().create()
+
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(ScalarsConverterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
+//            .addConverterFactory(GsonConverterFactory.create(gson))
             .client(httpClient.build())
             .build()
         service = retrofit.create(SVESQBankService::class.java)
@@ -36,5 +38,9 @@ class WebServiceUtil {
 
     fun getSubjects(dept: String, callback: Callback<String>) {
         service.getSubjects(dept).enqueue(callback)
+    }
+
+    fun getQuestions(dept: String, subj: String, level: Int, callback: Callback<Questions>) {
+        service.getQuestions(dept, subj, level).enqueue(callback)
     }
 }

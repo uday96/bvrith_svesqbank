@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/root_layout_ans"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/_8sdp"
+        android:paddingRight="@dimen/_8sdp"
+        android:paddingTop="@dimen/_12sdp"
+        android:paddingBottom="@dimen/_12sdp"
+>
+    <TextView
+            android:id="@+id/ansItem_que"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/_13sdp"
+            android:textStyle="bold"/>
+
+    <TextView
+            android:id="@+id/ansItem_selected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:textSize="@dimen/_12sdp"/>
+
+    <TextView
+            android:id="@+id/ansItem_correct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:textSize="@dimen/_12sdp"/>
+
+    <TextView
+            android:id="@+id/ansItem_explanation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:textSize="@dimen/_12sdp"/>
+
+    <TextView
+            android:id="@+id/ansItem_resource"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:textSize="@dimen/_12sdp"/>
+</LinearLayout>

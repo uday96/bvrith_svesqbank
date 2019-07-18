@@ -1,6 +1,8 @@
 package com.example.bvrith_svesqbank.ui.activities
 
+import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -11,10 +13,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import com.example.bvrith_svesqbank.R
 import com.example.bvrith_svesqbank.api.ConnectivityUtils
 import com.example.bvrith_svesqbank.api.WebServiceUtil
-import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,6 +25,7 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
 
     private val webService = WebServiceUtil()
+    private var uname: String = ""
 
     private val callback = object : Callback<String> {
         override fun onFailure(call: Call<String>?, t: Throwable?) {
@@ -34,12 +38,37 @@ class MainActivity : AppCompatActivity() {
             response?.isSuccessful.let {
                 val loginStatus = response?.body().toString().trim()
                 if (loginStatus == "success") {
-                    Snackbar.make(findViewById(R.id.constraintLayout), "Login Successful", Snackbar.LENGTH_LONG).show()
-                    val fetchQueIntent = Intent(this@MainActivity, FetchQuestions::class.java);
-                    startActivity(fetchQueIntent);
+                    val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this@MainActivity, R.drawable.ic_account_circle_black_24dp)!!);
+                    DrawableCompat.setTint(drawable, ContextCompat.getColor(this@MainActivity, R.color.colorPrimary))
+                    val alertDialog = AlertDialog.Builder(this@MainActivity).setTitle("Welcome")
+                        .setMessage("Logged in successfully!")
+                        .setPositiveButton(android.R.string.ok) { _, _ ->
+                            val fetchQueIntent = Intent(this@MainActivity, FetchQuestions::class.java);
+                            fetchQueIntent.putExtra("uname", uname)
+                            startActivity(fetchQueIntent);
+                        }
+                        .setIcon(drawable)
+                        .show()
+                    val button = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE)
+                    with(button) {
+                        setBackgroundColor(resources.getColor(R.color.colorPrimary))
+                        setTextColor(Color.WHITE)
+                    }
+                    alertDialog.setCanceledOnTouchOutside(false);
                 }
                 else {
-                    Snackbar.make(findViewById(R.id.constraintLayout), "Login Failed: Please check your credentials", Snackbar.LENGTH_LONG).show()
+                    val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this@MainActivity, R.drawable.ic_warning_black_24dp)!!);
+                    DrawableCompat.setTint(drawable, ContextCompat.getColor(this@MainActivity, android.R.color.holo_red_dark))
+                    val alertDialog = AlertDialog.Builder(this@MainActivity).setTitle("Login Failed")
+                        .setMessage("Please check your credentials and try again")
+                        .setPositiveButton(android.R.string.ok) { _, _ -> }
+                        .setIcon(drawable)
+                        .show()
+                    val button = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE)
+                    with(button) {
+                        setBackgroundColor(resources.getColor(R.color.colorPrimary))
+                        setTextColor(Color.WHITE)
+                    }
                 }
             }
         }
@@ -64,20 +93,28 @@ class MainActivity : AppCompatActivity() {
         // set on-click listener
         btn_login.setOnClickListener {
             Log.d("Main", "Login btn clicked")
-            val uname = et_username.text.toString()
+            uname = et_username.text.toString()
             val pwd = et_password.text.toString()
 
             if (ConnectivityUtils.isConnected(this)) {
 //                webService.login(uname,pwd,callback)
+//                TODO : remove
                 val fetchQueIntent = Intent(this@MainActivity, FetchQuestions::class.java);
                 fetchQueIntent.putExtra("uname", uname)
                 startActivity(fetchQueIntent);
             } else {
-                AlertDialog.Builder(this).setTitle("No Internet Connection")
+                val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this, R.drawable.ic_warning_black_24dp)!!);
+                DrawableCompat.setTint(drawable, ContextCompat.getColor(this, android.R.color.holo_orange_dark))
+                val alertDialog = AlertDialog.Builder(this).setTitle("No Internet Connection")
                     .setMessage("Please check your internet connection and try again")
                     .setPositiveButton(android.R.string.ok) { _, _ -> }
-                    .setIcon(android.R.drawable.ic_dialog_alert).show()
-//                Snackbar.make(findViewById(R.id.constraintLayout), "No Internet Connection: Please check your internet connection and try again", Snackbar.LENGTH_LONG).show()
+                    .setIcon(drawable)
+                    .show()
+                val button = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE)
+                with(button) {
+                    setBackgroundColor(resources.getColor(R.color.colorPrimary))
+                    setTextColor(Color.WHITE)
+                }
             }
         }
 

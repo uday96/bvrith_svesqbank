@@ -1,7 +1,9 @@
 package com.example.bvrith_svesqbank.ui.activities
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.res.Resources
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -10,6 +12,8 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import com.example.bvrith_svesqbank.R
 import com.example.bvrith_svesqbank.api.ConnectivityUtils
 import com.example.bvrith_svesqbank.api.WebServiceUtil
@@ -23,6 +27,7 @@ class FetchQuestions : AppCompatActivity(){
     private var dept : String = ""
     private var subj : String = ""
     private var level : Int = -1
+    private val REQUEST_CODE = 2
 
     private val callback = object : Callback<String> {
         override fun onFailure(call: Call<String>?, t: Throwable?) {
@@ -65,9 +70,9 @@ class FetchQuestions : AppCompatActivity(){
         // TODO : remove
         val displayQueIntent = Intent(this@FetchQuestions, DisplayQuestions::class.java);
         displayQueIntent.putExtra("dept", "CSE/IT")
-        displayQueIntent.putExtra("subj", "JAVA")
+        displayQueIntent.putExtra("subj", "DBMS")
         displayQueIntent.putExtra("level", 0)
-        startActivity(displayQueIntent);
+        startActivityForResult(displayQueIntent, REQUEST_CODE);
 
         val dept_list = res.getStringArray(R.array.dept_list)
         val dept_adapter = ArrayAdapter(this, R.layout.dropdown_menu_popup_item, dept_list)
@@ -84,10 +89,18 @@ class FetchQuestions : AppCompatActivity(){
                 if (ConnectivityUtils.isConnected(this@FetchQuestions)) {
                     webService.getSubjects(dept,callback)
                 } else {
-                    AlertDialog.Builder(this@FetchQuestions).setTitle("No Internet Connection")
+                    val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this@FetchQuestions, R.drawable.ic_warning_black_24dp)!!);
+                    DrawableCompat.setTint(drawable, ContextCompat.getColor(this@FetchQuestions, R.color.colorPrimary))
+                    val alertDialog = AlertDialog.Builder(this@FetchQuestions).setTitle("No Internet Connection")
                         .setMessage("Please check your internet connection and try again")
                         .setPositiveButton(android.R.string.ok) { _, _ -> }
-                        .setIcon(android.R.drawable.ic_dialog_alert).show()
+                        .setIcon(drawable)
+                        .show()
+                    val button = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE)
+                    with(button) {
+                        setBackgroundColor(resources.getColor(R.color.colorPrimary))
+                        setTextColor(Color.WHITE)
+                    }
                 }
 
                 validate_btn()
@@ -124,7 +137,7 @@ class FetchQuestions : AppCompatActivity(){
             displayQueIntent.putExtra("dept", dept)
             displayQueIntent.putExtra("subj", subj)
             displayQueIntent.putExtra("level", level)
-            startActivity(displayQueIntent);
+            startActivityForResult(displayQueIntent, REQUEST_CODE);
         }
 
     }
@@ -146,10 +159,20 @@ class FetchQuestions : AppCompatActivity(){
         // Handle presses on the action bar menu items
         when (item.itemId) {
             R.id.menu_logout -> {
-                Log.d("Fetch","Logout")
+                Log.d("FetchQue","Logout")
+                finish()
                 return true
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        // check if the requestCode is the wanted one and if the result is what we are expecting
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            Log.d("FetchQue","Logout - Back")
+            finish()
+        }
     }
 }

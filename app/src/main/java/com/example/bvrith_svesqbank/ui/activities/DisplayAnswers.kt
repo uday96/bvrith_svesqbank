@@ -2,6 +2,8 @@ package com.example.bvrith_svesqbank.ui.activities
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,7 +18,7 @@ class DisplayAnswers : AppCompatActivity() {
         setContentView(R.layout.activity_display_answers)
 
         val selected_opts = intent.getIntArrayExtra("selected_options")
-        val ques : Array<Question> = intent.getSerializableExtra("questions") as Array<Question>
+        val ques : ArrayList<Question> = intent.getSerializableExtra("questions") as ArrayList<Question>
         val score = intent.getIntExtra("score", -1)
 
         val score_text = findViewById(R.id.textView_score) as TextView
@@ -31,5 +33,23 @@ class DisplayAnswers : AppCompatActivity() {
         val adapter = AnswersAdapter(ques, selected_opts)
 
         recyclerView.adapter = adapter
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.action_bar_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle presses on the action bar menu items
+        when (item.itemId) {
+            R.id.menu_logout -> {
+                Log.d("DisplayAns","Logout")
+                setResult(RESULT_OK)
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

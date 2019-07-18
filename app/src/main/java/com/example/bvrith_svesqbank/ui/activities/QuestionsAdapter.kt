@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bvrith_svesqbank.R
 import com.example.bvrith_svesqbank.data.Question
 
-class QuestionsAdapter(val questions: Array<Question>, val selected_opts: HashMap<Int,Int>) : RecyclerView.Adapter<QuestionsAdapter.QuestionsHolder>() {
+class QuestionsAdapter(val questions: ArrayList<Question>, val selected_opts: HashMap<Int,Int>) : RecyclerView.Adapter<QuestionsAdapter.QuestionsHolder>() {
 
     //this method is returning the view for each item in the list
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuestionsAdapter.QuestionsHolder {

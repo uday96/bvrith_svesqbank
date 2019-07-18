@@ -5,6 +5,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Callback
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class WebServiceUtil {
@@ -21,12 +22,10 @@ class WebServiceUtil {
         val httpClient = OkHttpClient.Builder()
         httpClient.addInterceptor(logging)
 
-//        val gson : Gson = GsonBuilder().setLenient().create()
-
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(ScalarsConverterFactory.create())
-//            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addConverterFactory(GsonConverterFactory.create())
             .client(httpClient.build())
             .build()
         service = retrofit.create(SVESQBankService::class.java)

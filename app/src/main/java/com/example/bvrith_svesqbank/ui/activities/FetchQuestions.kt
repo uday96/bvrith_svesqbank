@@ -46,7 +46,6 @@ class FetchQuestions : AppCompatActivity(){
                 val subjAdapter = ArrayAdapter(this@FetchQuestions, R.layout.dropdown_menu_popup_item, subj_list)
                 subjAdapter.notifyDataSetChanged()
                 subj_dropdown.setAdapter(subjAdapter)
-//                subj_dropdown.setText(subjAdapter.getItem(0).toString())
             }
         }
     }
@@ -68,14 +67,6 @@ class FetchQuestions : AppCompatActivity(){
         welcome_text.text = welcome_msg
         Log.d("FetchQue", welcome_msg)
 
-        // TODO : remove
-        val displayQueIntent = Intent(this@FetchQuestions, DisplayQuestions::class.java);
-        displayQueIntent.putExtra("uname", uname)
-        displayQueIntent.putExtra("dept", "CSE/IT")
-        displayQueIntent.putExtra("subj", "DBMS")
-        displayQueIntent.putExtra("level", 0)
-        startActivityForResult(displayQueIntent, REQUEST_CODE);
-
         val dept_list = res.getStringArray(R.array.dept_list)
         val dept_adapter = ArrayAdapter(this, R.layout.dropdown_menu_popup_item, dept_list)
         dept_dropdown.setAdapter(dept_adapter)
@@ -83,7 +74,6 @@ class FetchQuestions : AppCompatActivity(){
             override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 dept = parent?.getItemAtPosition(position).toString()
                 Log.d("FetchQue", dept)
-                Toast.makeText(this@FetchQuestions, "Spinner selected : ${dept}", Toast.LENGTH_LONG).show()
                 var subj_dropdown = findViewById(R.id.fetch_que_subj) as AutoCompleteTextView
                 subj_dropdown.setText("")
                 subj = ""
@@ -115,7 +105,6 @@ class FetchQuestions : AppCompatActivity(){
                 subj = parent?.getItemAtPosition(position).toString()
                 Log.d("FetchQue", subj)
                 validate_btn()
-                Toast.makeText(this@FetchQuestions, "Spinner selected : ${subj}", Toast.LENGTH_LONG).show()
             }
         }
 
@@ -128,7 +117,6 @@ class FetchQuestions : AppCompatActivity(){
                 level = position
                 Log.d("FetchQue", level_val)
                 validate_btn()
-                Toast.makeText(this@FetchQuestions, "Spinner selected : ${level}", Toast.LENGTH_LONG).show()
             }
         }
 

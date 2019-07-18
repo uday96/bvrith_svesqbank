@@ -8,9 +8,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -88,30 +86,43 @@ class DisplayQuestions : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         val submit = findViewById(R.id.button_que_submit) as Button
+        val clear = findViewById(R.id.button_que_clear) as Button
 
         submit.setOnClickListener{
             Log.d("DisplayQue", selected_opts.toString())
-            val isValid = validate(selected_opts, questions.size)
+            var isValid = true
+            if(selected_opts.size != questions.size){
+                for(qno in 1..questions.size){
+                    if(!selected_opts.containsKey(qno)){
+                        val holder = recyclerView.getChildViewHolder(recyclerView.getChildAt(qno-1))
+                        val option = holder.itemView.findViewById(R.id.queItem_option1) as RadioButton
+                        option.setError(getString(R.string.text_error_msg))
+                        isValid = false
+                    }
+                }
+            }
             Log.d("DisplayQue", isValid.toString())
-            if(isValid == -1){
+            if(isValid){
                 score(selected_opts, questions)
             }
         }
 
+        clear.setOnClickListener {
+            Log.d("DisplayQue","rv child # ${recyclerView.childCount}")
+            for(i in 1..recyclerView.childCount){
+                val holder = recyclerView.getChildViewHolder(recyclerView.getChildAt(i-1))
+                val options: RadioGroup = holder.itemView.findViewById(R.id.queItem) as RadioGroup
+                val option1: RadioButton = holder.itemView.findViewById(R.id.queItem_option1) as RadioButton
+                option1.setError(null)
+                if(options.checkedRadioButtonId > 0){
+                    options.clearCheck()
+                }
+            }
+            selected_opts.clear()
+        }
+
         val layout = findViewById(R.id.layout_que) as LinearLayout
         layout.setVisibility(View.GONE)
-    }
-
-    fun validate(selected_opts: HashMap<Int,Int>, total: Int): Int{
-        if(selected_opts.size == total){
-            return -1
-        }
-        for(qno in 1..total){
-            if(!selected_opts.containsKey(qno-1)){
-                return qno-1
-            }
-        }
-        return -1
     }
 
     fun score(selected_opts: HashMap<Int,Int>, questions: ArrayList<Question>) {

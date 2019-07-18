@@ -1,6 +1,5 @@
 package com.example.bvrith_svesqbank.ui.activities
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,11 +44,13 @@ class QuestionsAdapter(val questions: ArrayList<Question>, val selected_opts: Ha
             option3.text = que.option3
             option4.text = que.option4
 
-            options.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener {group, checkedId ->
-                val radio: RadioButton = itemView.findViewById(checkedId)
-                selected_opts[sno+1] = group.indexOfChild(radio)+1
-                Log.d("OptionsHM", selected_opts.toString())
-            })
+            options.setOnCheckedChangeListener {group, checkedId ->
+                if(checkedId != null && checkedId > 0){
+                    val radio: RadioButton = itemView.findViewById(checkedId)
+                    selected_opts[sno+1] = group.indexOfChild(radio)+1
+                    option1.setError(null)
+                }
+            }
         }
     }
 }

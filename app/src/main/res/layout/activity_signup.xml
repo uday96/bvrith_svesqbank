@@ -40,7 +40,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/signup_fullname"
-                            android:id="@+id/editText_signup_fullname"/>
+                            android:id="@+id/editText_signup_fullname"
+                            android:inputType="text"
+                            android:maxLines="1"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -54,7 +56,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/signup_rollno"
-                            android:id="@+id/editText_signup_rollno"/>
+                            android:id="@+id/editText_signup_rollno"
+                            android:inputType="text"
+                            android:maxLines="1"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -121,7 +125,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/signup_email"
-                            android:id="@+id/editText_signup_email"/>
+                            android:id="@+id/editText_signup_email"
+                            android:inputType="textEmailAddress"
+                            android:maxLines="1"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -135,7 +141,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/signup_mobile"
-                            android:id="@+id/editText_signup_mobile"/>
+                            android:id="@+id/editText_signup_mobile"
+                            android:inputType="phone"
+                            android:maxLines="1"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -203,7 +211,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/signup_uname"
-                            android:id="@+id/editText_signup_uname"/>
+                            android:id="@+id/editText_signup_uname"
+                            android:inputType="text"
+                            android:maxLines="1"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -218,6 +228,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textPassword"
+                            android:maxLines="1"
                             android:hint="@string/signup_pwd"
                             android:id="@+id/editText_signup_pwd"/>
 

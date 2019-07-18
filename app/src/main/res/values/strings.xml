@@ -59,5 +59,6 @@
     <string name="button_create">Create</string>
     <string name="button_submit">Submit</string>
     <string name="title">SVES Question Bank</string>
+    <string name="text_error_msg">Field cannot be empty</string>
 
 </resources>

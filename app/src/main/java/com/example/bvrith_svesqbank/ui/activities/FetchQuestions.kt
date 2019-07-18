@@ -24,6 +24,7 @@ import retrofit2.Response
 class FetchQuestions : AppCompatActivity(){
 
     private val webService = WebServiceUtil()
+    private var uname : String = ""
     private var dept : String = ""
     private var subj : String = ""
     private var level : Int = -1
@@ -62,13 +63,14 @@ class FetchQuestions : AppCompatActivity(){
 
         btn_fetch.isEnabled = false
 
-        val uname = intent.getStringExtra("uname")
+        uname = intent.getStringExtra("uname")
         var welcome_msg =  "Hello, $uname"
         welcome_text.text = welcome_msg
         Log.d("FetchQue", welcome_msg)
 
         // TODO : remove
         val displayQueIntent = Intent(this@FetchQuestions, DisplayQuestions::class.java);
+        displayQueIntent.putExtra("uname", uname)
         displayQueIntent.putExtra("dept", "CSE/IT")
         displayQueIntent.putExtra("subj", "DBMS")
         displayQueIntent.putExtra("level", 0)
@@ -134,6 +136,7 @@ class FetchQuestions : AppCompatActivity(){
             Log.d("FetchQue", "Fetch Que btn clicked")
             Log.d("FetchQue", "Dept: ${dept} , Subj: ${subj}, Level: ${level}")
             val displayQueIntent = Intent(this@FetchQuestions, DisplayQuestions::class.java);
+            displayQueIntent.putExtra("uname", uname)
             displayQueIntent.putExtra("dept", dept)
             displayQueIntent.putExtra("subj", subj)
             displayQueIntent.putExtra("level", level)

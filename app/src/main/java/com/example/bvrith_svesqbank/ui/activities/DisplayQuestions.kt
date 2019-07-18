@@ -7,7 +7,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -28,6 +30,8 @@ class DisplayQuestions : AppCompatActivity() {
 
     private val webService = WebServiceUtil()
     private val REQUEST_CODE = 3
+    private var uname: String = ""
+    private var subj: String = ""
 
     val selected_opts: HashMap<Int,Int> = hashMapOf()
     val questions: ArrayList<Question> = ArrayList()
@@ -44,6 +48,8 @@ class DisplayQuestions : AppCompatActivity() {
             response?.isSuccessful.let {
                 questions.addAll(response?.body()!!.questions)
                 adapter.notifyDataSetChanged()
+                val layout = findViewById(R.id.layout_que) as LinearLayout
+                layout.setVisibility(View.VISIBLE)
             }
         }
     }
@@ -52,8 +58,9 @@ class DisplayQuestions : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_display_questions)
 
+        uname = intent.getStringExtra("uname")
         val dept = intent.getStringExtra("dept")
-        val subj = intent.getStringExtra("subj")
+        subj = intent.getStringExtra("subj")
         val level = intent.getIntExtra("level", -1) + 1
         Log.d("DisplayQue", "Dept: ${dept} , Subj: ${subj}, Level: ${level}")
 
@@ -77,25 +84,6 @@ class DisplayQuestions : AppCompatActivity() {
         val recyclerView = findViewById(R.id.recyclerView_que) as RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
-//        val ques = arrayOf<Question>(Question("842",
-//            "Which of these is a mechanism for naming and visibility control of a class and its content?",
-//            "Object",
-//            "Packages",
-//            "Interfaces",
-//            "None of the Mentioned.",
-//            "2",
-//            "Packages are both naming and visibility control mechanism. We can define a class inside a package which is not accessible by code outside the package.",
-//            "https://www.indiabix.com"),
-//            Question("845",
-//                "Which of these is a mechanism for naming and visibility control of a class and its content?",
-//                "Object",
-//                "Packages",
-//                "Interfaces",
-//                "None of the Mentioned.",
-//                "2",
-//                "Packages are both naming and visibility control mechanism. We can define a class inside a package which is not accessible by code outside the package.",
-//                "https://www.indiabix.com"))
-
         adapter = QuestionsAdapter(questions, selected_opts)
         recyclerView.adapter = adapter
 
@@ -109,6 +97,9 @@ class DisplayQuestions : AppCompatActivity() {
                 score(selected_opts, questions)
             }
         }
+
+        val layout = findViewById(R.id.layout_que) as LinearLayout
+        layout.setVisibility(View.GONE)
     }
 
     fun validate(selected_opts: HashMap<Int,Int>, total: Int): Int{
@@ -134,24 +125,13 @@ class DisplayQuestions : AppCompatActivity() {
             }
         }
 
-        val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this, R.drawable.ic_check_circle_black_24dp)!!);
-        DrawableCompat.setTint(drawable, ContextCompat.getColor(this, R.color.colorPrimary))
-        val alertDialog = AlertDialog.Builder(this@DisplayQuestions).setTitle("Test Score")
-                .setMessage("Your test score is ${score} / ${total}")
-                .setPositiveButton(android.R.string.ok) { _, _ ->
-                    val displayAnsIntent = Intent(this@DisplayQuestions, DisplayAnswers::class.java);
-                    displayAnsIntent.putExtra("questions", questions)
-                    displayAnsIntent.putExtra("selected_options", selected_options)
-                    displayAnsIntent.putExtra("score", score)
-                    startActivityForResult(displayAnsIntent, REQUEST_CODE);
-                }
-                .setIcon(drawable)
-                .show()
-        val button = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE)
-        with(button) {
-            setBackgroundColor(resources.getColor(R.color.colorPrimary))
-            setTextColor(Color.WHITE)
-        }
+        val displayAnsIntent = Intent(this@DisplayQuestions, DisplayAnswers::class.java);
+        displayAnsIntent.putExtra("questions", questions)
+        displayAnsIntent.putExtra("selected_options", selected_options)
+        displayAnsIntent.putExtra("score", score)
+        displayAnsIntent.putExtra("subj", subj)
+        displayAnsIntent.putExtra("uname", uname)
+        startActivityForResult(displayAnsIntent, REQUEST_CODE);
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

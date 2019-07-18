@@ -4,6 +4,8 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -81,47 +83,95 @@ class MainActivity : AppCompatActivity() {
         val actionBar = supportActionBar
         actionBar?.hide()
 
-
         // get reference to all views
         var et_username = findViewById(R.id.editText_login_username) as EditText
         var et_password = findViewById(R.id.editText_login_pwd) as EditText
         var btn_login = findViewById(R.id.button_login) as Button
+        var btn_clear = findViewById(R.id.button_login_cancel) as Button
         var tv_forgotpwd = findViewById(R.id.textView_login_forgotpwd) as TextView
         var tv_resetpwd = findViewById(R.id.textView_login_resetpwd) as TextView
         var btn_signup = findViewById(R.id.button_signup) as Button
 
+        et_username.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(s: CharSequence, start: Int,
+                                           count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence, start: Int,
+                                       before: Int, count: Int) {
+
+                et_username.setError(null)
+                if(s.length == 0){
+                    et_username.setError("Field cannot be empty")
+                }
+            }
+        })
+
+        et_password.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(s: CharSequence, start: Int,
+                                           count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence, start: Int,
+                                       before: Int, count: Int) {
+
+                et_password.setError(null)
+                if(s.length == 0){
+                    et_password.setError("Field cannot be empty")
+                }
+            }
+        })
+
+        btn_clear.setOnClickListener{
+            et_username.text.clear()
+            et_password.text.clear()
+            et_username.setError(null)
+            et_password.setError(null)
+        }
+
         // set on-click listener
         btn_login.setOnClickListener {
             Log.d("Main", "Login btn clicked")
-            uname = et_username.text.toString()
-            val pwd = et_password.text.toString()
+            var valid = true
+            if(et_username.text.isNullOrBlank()){
+                et_username.setError("Field cannot be empty")
+                valid = false
+            }
+            if(et_password.text.isNullOrBlank()){
+                et_password.setError("Field cannot be empty")
+                valid = false
+            }
+            if(valid){
+                uname = et_username.text.toString()
+                val pwd = et_password.text.toString()
 
-            if (ConnectivityUtils.isConnected(this)) {
-//                webService.login(uname,pwd,callback)
-//                TODO : remove
-                val fetchQueIntent = Intent(this@MainActivity, FetchQuestions::class.java);
-                fetchQueIntent.putExtra("uname", uname)
-                startActivity(fetchQueIntent);
-            } else {
-                val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this, R.drawable.ic_warning_black_24dp)!!);
-                DrawableCompat.setTint(drawable, ContextCompat.getColor(this, android.R.color.holo_orange_dark))
-                val alertDialog = AlertDialog.Builder(this).setTitle("No Internet Connection")
-                    .setMessage("Please check your internet connection and try again")
-                    .setPositiveButton(android.R.string.ok) { _, _ -> }
-                    .setIcon(drawable)
-                    .show()
-                val button = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE)
-                with(button) {
-                    setBackgroundColor(resources.getColor(R.color.colorPrimary))
-                    setTextColor(Color.WHITE)
+                if (ConnectivityUtils.isConnected(this)) {
+                    webService.login(uname,pwd,callback)
+                } else {
+                    val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this, R.drawable.ic_warning_black_24dp)!!);
+                    DrawableCompat.setTint(drawable, ContextCompat.getColor(this, android.R.color.holo_orange_dark))
+                    val alertDialog = AlertDialog.Builder(this).setTitle("No Internet Connection")
+                        .setMessage("Please check your internet connection and try again")
+                        .setPositiveButton(android.R.string.ok) { _, _ -> }
+                        .setIcon(drawable)
+                        .show()
+                    val button = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE)
+                    with(button) {
+                        setBackgroundColor(resources.getColor(R.color.colorPrimary))
+                        setTextColor(Color.WHITE)
+                    }
                 }
             }
         }
 
         btn_signup.setOnClickListener{
             Log.d("Main", "Signup btn clicked")
-            val signupIntent = Intent(this, SignupActivity::class.java);
-            startActivity(signupIntent);
+            val signupIntent = Intent(this, SignupActivity::class.java)
+            startActivity(signupIntent)
 
         }
 

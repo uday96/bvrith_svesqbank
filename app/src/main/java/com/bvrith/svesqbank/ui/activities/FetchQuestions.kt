@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.bvrith.svesqbank.R
-import com.bvrith.svesqbank.api.ConnectivityUtils
+import com.bvrith.svesqbank.utils.ConnectivityUtils
 import com.bvrith.svesqbank.api.WebServiceUtil
 import retrofit2.Call
 import retrofit2.Callback

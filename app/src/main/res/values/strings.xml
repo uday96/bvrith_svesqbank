@@ -2,7 +2,7 @@
 
     <string name="app_name">BVRITH SVESQBank</string>
 
-    <string name="login_username">Username</string>
+    <string name="login_username">Login Mail ID</string>
     <string name="button_login">Login</string>
     <string name="login_pwd">Password</string>
     <string name="login_forgotpwd">Forgot Password</string>
@@ -42,7 +42,7 @@
         <item>D</item>
         <item>E</item>
     </string-array>
-    <string name="signup_uname">Login Username</string>
+    <string name="signup_uname">Login Mail ID</string>
     <string name="signup_pwd">Password</string>
     <string name="button_fetch_que">Get Questions</string>
 
@@ -60,5 +60,6 @@
     <string name="button_submit">Submit</string>
     <string name="title">SVES Question Bank</string>
     <string name="text_error_msg">Field cannot be empty</string>
+    <string name="email_error_msg">Invalid Email ID</string>
 
 </resources>

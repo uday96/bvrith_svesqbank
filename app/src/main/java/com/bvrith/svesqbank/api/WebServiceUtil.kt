@@ -47,7 +47,7 @@ class WebServiceUtil {
         service.sendScore(uname, subj, score).enqueue(callback)
     }
 
-    fun signup(name: String, rollnumber: String, college: String, role: String, mail: String, mobile_number: String, uname: String, password: String, dept: String, callback: Callback<String>) {
-        service.signup(name, rollnumber, college, role, mail, mobile_number, uname, password, dept).enqueue(callback)
+    fun signup(name: String, rollnumber: String, college: String, role: String, mail: String, mobile_number: String, uname: String, password: String, dept: String, sec: String, callback: Callback<String>) {
+        service.signup(name, rollnumber, college, role, mail, mobile_number, uname, password, dept, sec).enqueue(callback)
     }
 }

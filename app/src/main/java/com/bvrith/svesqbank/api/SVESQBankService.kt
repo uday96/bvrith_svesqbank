@@ -21,7 +21,8 @@ interface SVESQBankService {
 
     @GET("/svesqbank/mobileRegister.jsp")
     fun signup(@Query("name") fname: String, @Query("rollnumber") rno: String, @Query("college") clg: String,
-                  @Query("role") role: String, @Query("mail") mail: String, @Query("mobile_number") mobile: String,
-                  @Query("uname") uname: String, @Query("password") pwd: String, @Query("dept") dept: String): Call<String>
+               @Query("role") role: String, @Query("mail") mail: String, @Query("mobile_number") mobile: String,
+               @Query("uname") uname: String, @Query("password") pwd: String, @Query("dept") dept: String,
+               @Query("section") sec: String): Call<String>
 
 }

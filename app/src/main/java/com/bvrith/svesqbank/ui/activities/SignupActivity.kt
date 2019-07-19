@@ -7,14 +7,17 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.bvrith.svesqbank.R
-import com.bvrith.svesqbank.api.ConnectivityUtils
 import com.bvrith.svesqbank.api.WebServiceUtil
+import com.bvrith.svesqbank.utils.ConnectivityUtils
+import com.bvrith.svesqbank.utils.TextUtils
+import com.google.android.material.textfield.TextInputLayout
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -85,6 +88,8 @@ class SignupActivity : AppCompatActivity() {
         val pwd = findViewById<EditText>(R.id.editText_signup_pwd)
         val btn_create = findViewById<Button>(R.id.button_signup_create)
         val btn_clear = findViewById<Button>(R.id.button_signup_clear)
+        val layout_dept = findViewById<TextInputLayout>(R.id.layout_signup_dept)
+        val layout_sec = findViewById<TextInputLayout>(R.id.layout_signup_sec)
 
         val colleges = res.getStringArray(R.array.signup_clg)
         val clg_adapter = ArrayAdapter(this, R.layout.dropdown_menu_popup_item, colleges)
@@ -106,8 +111,22 @@ class SignupActivity : AppCompatActivity() {
             clg_dropdown.error = null
         }
 
-        role_dropdown.onItemClickListener = AdapterView.OnItemClickListener{_,_,_,_ ->
+        role_dropdown.onItemClickListener = AdapterView.OnItemClickListener{parent,_,position,_ ->
             role_dropdown.error = null
+            when(parent.getItemAtPosition(position).toString()) {
+                "Faculty" -> {
+                    layout_sec.visibility = View.GONE
+                    layout_dept.visibility = View.VISIBLE
+                }
+                "Principal/Director" -> {
+                    layout_sec.visibility = View.GONE
+                    layout_dept.visibility = View.GONE
+                }
+                else -> {
+                    layout_sec.visibility = View.VISIBLE
+                    layout_dept.visibility = View.VISIBLE
+                }
+            }
         }
 
         dept_dropdown.onItemClickListener = AdapterView.OnItemClickListener{_,_,_,_ ->
@@ -253,12 +272,20 @@ class SignupActivity : AppCompatActivity() {
                 email.error = getString(R.string.text_error_msg)
                 valid = false
             }
+            else if(!TextUtils.isEmailValid(email.text.toString().trim())){
+                email.error = getString(R.string.email_error_msg)
+                valid = false
+            }
             if(mobile.text.isBlank()){
                 mobile.error = getString(R.string.text_error_msg)
                 valid = false
             }
             if(uname.text.isBlank()){
                 uname.error = getString(R.string.text_error_msg)
+                valid = false
+            }
+            else if(!TextUtils.isEmailValid(uname.text.toString().trim())){
+                uname.error = getString(R.string.email_error_msg)
                 valid = false
             }
             if(pwd.text.isBlank()){
@@ -273,11 +300,11 @@ class SignupActivity : AppCompatActivity() {
                 role_dropdown.error = getString(R.string.text_error_msg)
                 valid = false
             }
-            if(dept_dropdown.text.isBlank()){
+            if(dept_dropdown.text.isBlank() && layout_dept.visibility == View.VISIBLE){
                 dept_dropdown.error = getString(R.string.text_error_msg)
                 valid = false
             }
-            if(sec_dropdown.text.isBlank()){
+            if(sec_dropdown.text.isBlank() && layout_sec.visibility == View.VISIBLE){
                 sec_dropdown.error = getString(R.string.text_error_msg)
                 valid = false
             }
@@ -291,11 +318,25 @@ class SignupActivity : AppCompatActivity() {
                 val phno = mobile.text.toString().trim()
                 val username = uname.text.toString().trim()
                 val password = pwd.text.toString().trim()
-                val dept = dept_dropdown.text.toString().trim()
-//                val sec = sec_dropdown.text.toString().trim()
+                var dept = dept_dropdown.text.toString().trim()
+                var sec = sec_dropdown.text.toString().trim()
+
+                when(role) {
+                    "Faculty" -> {
+                        sec = ""
+                    }
+                    "Principal/Director" -> {
+                        sec = ""
+                        dept = ""
+                    }
+                    else -> {
+                        assert(sec.isNotBlank())
+                        assert(dept.isNotBlank())
+                    }
+                }
 
                 if (ConnectivityUtils.isConnected(this)) {
-                    webService.signup(fname, rno, clg, role, mail, phno, username, password, dept, callback)
+                    webService.signup(fname, rno, clg, role, mail, phno, username, password, dept, sec, callback)
                 } else {
                     val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this, R.drawable.ic_warning_black_24dp)!!)
                     DrawableCompat.setTint(drawable, ContextCompat.getColor(this, android.R.color.holo_orange_dark))

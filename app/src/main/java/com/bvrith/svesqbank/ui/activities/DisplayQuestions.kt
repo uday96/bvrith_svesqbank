@@ -15,7 +15,7 @@ import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bvrith.svesqbank.R
-import com.bvrith.svesqbank.api.ConnectivityUtils
+import com.bvrith.svesqbank.utils.ConnectivityUtils
 import com.bvrith.svesqbank.api.WebServiceUtil
 import com.bvrith.svesqbank.data.Question
 import com.bvrith.svesqbank.data.Questions

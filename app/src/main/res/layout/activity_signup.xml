@@ -176,7 +176,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/dept_prompt"
-                        android:layout_marginTop="@dimen/_7sdp">
+                        android:layout_marginTop="@dimen/_7sdp"
+                        android:id="@+id/layout_signup_dept">
 
                     <AutoCompleteTextView
                             android:id="@+id/spinner_signup_dept"
@@ -191,7 +192,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/signup_sec_prompt"
-                        android:layout_marginTop="@dimen/_7sdp">
+                        android:layout_marginTop="@dimen/_7sdp"
+                        android:id="@+id/layout_signup_sec">
 
                     <AutoCompleteTextView
                             android:id="@+id/spinner_signup_sec"

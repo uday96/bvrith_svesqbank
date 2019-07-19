@@ -17,8 +17,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.bvrith.svesqbank.R
-import com.bvrith.svesqbank.api.ConnectivityUtils
 import com.bvrith.svesqbank.api.WebServiceUtil
+import com.bvrith.svesqbank.utils.ConnectivityUtils
+import com.bvrith.svesqbank.utils.TextUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -137,6 +138,10 @@ class MainActivity : AppCompatActivity() {
             var valid = true
             if(et_username.text.isBlank()){
                 et_username.error = getString(R.string.text_error_msg)
+                valid = false
+            }
+            else if(!TextUtils.isEmailValid(et_username.text.toString().trim())){
+                et_username.error = getString(R.string.email_error_msg)
                 valid = false
             }
             if(et_password.text.isBlank()){

@@ -1,6 +1,6 @@
-package com.example.bvrith_svesqbank.api
+package com.bvrith.svesqbank.api
 
-import com.example.bvrith_svesqbank.data.Questions
+import com.bvrith.svesqbank.data.Questions
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Callback

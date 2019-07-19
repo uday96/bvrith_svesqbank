@@ -1,4 +1,4 @@
-package com.example.bvrith_svesqbank
+package com.bvrith.svesqbank
 
 import org.junit.Test
 

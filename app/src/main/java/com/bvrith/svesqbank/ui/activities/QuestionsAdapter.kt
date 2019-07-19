@@ -1,4 +1,4 @@
-package com.example.bvrith_svesqbank.ui.activities
+package com.bvrith.svesqbank.ui.activities
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,8 +7,8 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.bvrith_svesqbank.R
-import com.example.bvrith_svesqbank.data.Question
+import com.bvrith.svesqbank.R
+import com.bvrith.svesqbank.data.Question
 
 class QuestionsAdapter(private val questions: ArrayList<Question>, private val selected_opts: HashMap<Int,Int>) : RecyclerView.Adapter<QuestionsAdapter.QuestionsHolder>() {
 

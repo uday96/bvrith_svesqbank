@@ -1,4 +1,4 @@
-package com.example.bvrith_svesqbank.data
+package com.bvrith.svesqbank.data
 
 import java.io.Serializable
 

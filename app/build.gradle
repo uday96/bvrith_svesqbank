@@ -8,7 +8,7 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.0"
     defaultConfig {
-        applicationId "com.example.bvrith_svesqbank"
+        applicationId "com.bvrith.svesqbank"
         minSdkVersion 16
         targetSdkVersion 29
         versionCode 1

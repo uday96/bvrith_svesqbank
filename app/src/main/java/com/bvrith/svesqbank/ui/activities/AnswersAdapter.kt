@@ -1,4 +1,4 @@
-package com.example.bvrith_svesqbank.ui.activities
+package com.bvrith.svesqbank.ui.activities
 
 import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
@@ -9,8 +9,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.text.bold
 import androidx.core.text.color
 import androidx.recyclerview.widget.RecyclerView
-import com.example.bvrith_svesqbank.R
-import com.example.bvrith_svesqbank.data.Question
+import com.bvrith.svesqbank.R
+import com.bvrith.svesqbank.data.Question
 
 class AnswersAdapter(private val questions: ArrayList<Question>, private val selected_opts: IntArray) : RecyclerView.Adapter<AnswersAdapter.AnswersHolder>() {
 

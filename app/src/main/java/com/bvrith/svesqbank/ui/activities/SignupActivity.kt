@@ -1,5 +1,5 @@
 
-package com.example.bvrith_svesqbank.ui.activities
+package com.bvrith.svesqbank.ui.activities
 
 import android.content.DialogInterface
 import android.content.res.Resources
@@ -12,9 +12,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
-import com.example.bvrith_svesqbank.R
-import com.example.bvrith_svesqbank.api.ConnectivityUtils
-import com.example.bvrith_svesqbank.api.WebServiceUtil
+import com.bvrith.svesqbank.R
+import com.bvrith.svesqbank.api.ConnectivityUtils
+import com.bvrith.svesqbank.api.WebServiceUtil
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

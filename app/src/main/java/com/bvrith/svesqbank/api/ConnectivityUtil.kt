@@ -1,4 +1,4 @@
-package com.example.bvrith_svesqbank.api
+package com.bvrith.svesqbank.api
 
 import android.content.Context
 import android.net.ConnectivityManager

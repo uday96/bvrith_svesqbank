@@ -4,7 +4,6 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -31,23 +30,23 @@ class DisplayQuestions : AppCompatActivity() {
     private var uname: String = ""
     private var subj: String = ""
 
-    val selected_opts: HashMap<Int,Int> = hashMapOf()
+    private val selected_opts: HashMap<Int,Int> = hashMapOf()
     val questions: ArrayList<Question> = ArrayList()
     private lateinit var adapter: QuestionsAdapter
 
     private val callback = object : Callback<Questions> {
         override fun onFailure(call: Call<Questions>?, t: Throwable?) {
-            Log.e("DisplayQue", "Problem calling API", t)
+//            Log.e("DisplayQue", "Problem calling API", t)
             Toast.makeText(this@DisplayQuestions, "Error calling API", Toast.LENGTH_LONG).show()
         }
 
         override fun onResponse(call: Call<Questions>?, response: Response<Questions>?) {
-            Log.i("Response", response?.body().toString());
+//            Log.i("Response", response?.body().toString());
             response?.isSuccessful.let {
                 questions.addAll(response?.body()!!.questions)
                 adapter.notifyDataSetChanged()
-                val layout = findViewById(R.id.layout_que) as LinearLayout
-                layout.setVisibility(View.VISIBLE)
+                val layout = findViewById<LinearLayout>(R.id.layout_que)
+                layout.visibility = View.VISIBLE
             }
         }
     }
@@ -56,16 +55,15 @@ class DisplayQuestions : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_display_questions)
 
-        uname = intent.getStringExtra("uname")
-        val dept = intent.getStringExtra("dept")
-        subj = intent.getStringExtra("subj")
+        uname = intent.getStringExtra("uname")!!
+        val dept = intent.getStringExtra("dept")!!
+        subj = intent.getStringExtra("subj")!!
         val level = intent.getIntExtra("level", -1) + 1
-        Log.d("DisplayQue", "Dept: ${dept} , Subj: ${subj}, Level: ${level}")
 
         if (ConnectivityUtils.isConnected(this@DisplayQuestions)) {
             webService.getQuestions(dept, subj, level, callback)
         } else {
-            val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this, R.drawable.ic_warning_black_24dp)!!);
+            val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this, R.drawable.ic_warning_black_24dp)!!)
             DrawableCompat.setTint(drawable, ContextCompat.getColor(this, R.color.colorPrimary))
             val alertDialog = AlertDialog.Builder(this@DisplayQuestions).setTitle("No Internet Connection")
                 .setMessage("Please check your internet connection and try again")
@@ -79,41 +77,38 @@ class DisplayQuestions : AppCompatActivity() {
             }
         }
 
-        val recyclerView = findViewById(R.id.recyclerView_que) as RecyclerView
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView_que)
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
         adapter = QuestionsAdapter(questions, selected_opts)
         recyclerView.adapter = adapter
 
-        val submit = findViewById(R.id.button_que_submit) as Button
-        val clear = findViewById(R.id.button_que_clear) as Button
+        val submit = findViewById<Button>(R.id.button_que_submit)
+        val clear = findViewById<Button>(R.id.button_que_clear)
 
         submit.setOnClickListener{
-            Log.d("DisplayQue", selected_opts.toString())
             var isValid = true
             if(selected_opts.size != questions.size){
                 for(qno in 1..questions.size){
                     if(!selected_opts.containsKey(qno)){
                         val holder = recyclerView.getChildViewHolder(recyclerView.getChildAt(qno-1))
                         val option = holder.itemView.findViewById(R.id.queItem_option1) as RadioButton
-                        option.setError(getString(R.string.text_error_msg))
+                        option.error = getString(R.string.text_error_msg)
                         isValid = false
                     }
                 }
             }
-            Log.d("DisplayQue", isValid.toString())
             if(isValid){
                 score(selected_opts, questions)
             }
         }
 
         clear.setOnClickListener {
-            Log.d("DisplayQue","rv child # ${recyclerView.childCount}")
             for(i in 1..recyclerView.childCount){
                 val holder = recyclerView.getChildViewHolder(recyclerView.getChildAt(i-1))
                 val options: RadioGroup = holder.itemView.findViewById(R.id.queItem) as RadioGroup
                 val option1: RadioButton = holder.itemView.findViewById(R.id.queItem_option1) as RadioButton
-                option1.setError(null)
+                option1.error = null
                 if(options.checkedRadioButtonId > 0){
                     options.clearCheck()
                 }
@@ -121,11 +116,11 @@ class DisplayQuestions : AppCompatActivity() {
             selected_opts.clear()
         }
 
-        val layout = findViewById(R.id.layout_que) as LinearLayout
-        layout.setVisibility(View.GONE)
+        val layout = findViewById<LinearLayout>(R.id.layout_que)
+        layout.visibility = View.GONE
     }
 
-    fun score(selected_opts: HashMap<Int,Int>, questions: ArrayList<Question>) {
+    private fun score(selected_opts: HashMap<Int,Int>, questions: ArrayList<Question>) {
         val total = questions.size
         var score = 0
         val selected_options = IntArray(total)
@@ -136,13 +131,13 @@ class DisplayQuestions : AppCompatActivity() {
             }
         }
 
-        val displayAnsIntent = Intent(this@DisplayQuestions, DisplayAnswers::class.java);
+        val displayAnsIntent = Intent(this@DisplayQuestions, DisplayAnswers::class.java)
         displayAnsIntent.putExtra("questions", questions)
         displayAnsIntent.putExtra("selected_options", selected_options)
         displayAnsIntent.putExtra("score", score)
         displayAnsIntent.putExtra("subj", subj)
         displayAnsIntent.putExtra("uname", uname)
-        startActivityForResult(displayAnsIntent, REQUEST_CODE);
+        startActivityForResult(displayAnsIntent, REQUEST_CODE)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -154,7 +149,6 @@ class DisplayQuestions : AppCompatActivity() {
         // Handle presses on the action bar menu items
         when (item.itemId) {
             R.id.menu_logout -> {
-                Log.d("DisplayQue","Logout")
                 setResult(RESULT_OK)
                 finish()
                 return true
@@ -167,7 +161,6 @@ class DisplayQuestions : AppCompatActivity() {
 
         // check if the requestCode is the wanted one and if the result is what we are expecting
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-            Log.d("DisplayQue","Logout - Back")
             setResult(RESULT_OK)
             finish()
         }

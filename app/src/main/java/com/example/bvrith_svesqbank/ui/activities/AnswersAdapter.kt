@@ -12,16 +12,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bvrith_svesqbank.R
 import com.example.bvrith_svesqbank.data.Question
 
-class AnswersAdapter(val questions: ArrayList<Question>, val selected_opts: IntArray) : RecyclerView.Adapter<AnswersAdapter.AnswersHolder>() {
+class AnswersAdapter(private val questions: ArrayList<Question>, private val selected_opts: IntArray) : RecyclerView.Adapter<AnswersAdapter.AnswersHolder>() {
 
     //this method is returning the view for each item in the list
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnswersAdapter.AnswersHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnswersHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.answer_item, parent, false)
         return AnswersHolder(v)
     }
 
     //this method is binding the data on the list
-    override fun onBindViewHolder(holder: AnswersAdapter.AnswersHolder, position: Int) {
+    override fun onBindViewHolder(holder: AnswersHolder, position: Int) {
         holder.bindItems(position, questions[position], selected_opts[position])
     }
 
@@ -53,7 +53,7 @@ class AnswersAdapter(val questions: ArrayList<Question>, val selected_opts: IntA
                 4 -> que.option4
                 else -> "Invalid Response"
             }
-            val isCorrect = my_opt == que.correct_answer!!.toInt()
+            val isCorrect = my_opt == que.correct_answer.toInt()
             var que_color = ContextCompat.getColor(itemView.context, android.R.color.holo_red_dark)
             if(isCorrect){
                 que_color = ContextCompat.getColor(itemView.context, android.R.color.holo_green_dark)

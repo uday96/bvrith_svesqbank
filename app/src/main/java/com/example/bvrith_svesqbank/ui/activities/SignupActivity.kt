@@ -7,7 +7,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -26,16 +25,16 @@ class SignupActivity : AppCompatActivity() {
 
     private val callback = object : Callback<String> {
         override fun onFailure(call: Call<String>?, t: Throwable?) {
-            Log.e("Signup", "Problem calling API", t)
+//            Log.e("Signup", "Problem calling API", t)
             Toast.makeText(this@SignupActivity, "Error calling API", Toast.LENGTH_LONG).show()
         }
 
         override fun onResponse(call: Call<String>?, response: Response<String>?) {
-            Log.i("Response", response?.body().toString());
+//            Log.i("Response", response?.body().toString());
             response?.isSuccessful.let {
                 val loginStatus = response?.body().toString().trim()
                 if (loginStatus == "success") {
-                    val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this@SignupActivity, R.drawable.ic_account_circle_black_24dp)!!);
+                    val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this@SignupActivity, R.drawable.ic_account_circle_black_24dp)!!)
                     DrawableCompat.setTint(drawable, ContextCompat.getColor(this@SignupActivity, R.color.colorPrimary))
                     val alertDialog = AlertDialog.Builder(this@SignupActivity).setTitle("Account Created Successfully")
                         .setMessage("Please login to continue.")
@@ -49,10 +48,10 @@ class SignupActivity : AppCompatActivity() {
                         setBackgroundColor(resources.getColor(R.color.colorPrimary))
                         setTextColor(Color.WHITE)
                     }
-                    alertDialog.setCanceledOnTouchOutside(false);
+                    alertDialog.setCanceledOnTouchOutside(false)
                 }
                 else {
-                    val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this@SignupActivity, R.drawable.ic_warning_black_24dp)!!);
+                    val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this@SignupActivity, R.drawable.ic_warning_black_24dp)!!)
                     DrawableCompat.setTint(drawable, ContextCompat.getColor(this@SignupActivity, android.R.color.holo_red_dark))
                     val alertDialog = AlertDialog.Builder(this@SignupActivity).setTitle("Login Failed")
                         .setMessage("Please check your credentials and try again")
@@ -74,18 +73,18 @@ class SignupActivity : AppCompatActivity() {
         setContentView(R.layout.activity_signup)
 
         val res: Resources = resources
-        val clg_dropdown = findViewById(R.id.spinner_signup_clg) as AutoCompleteTextView
-        val role_dropdown = findViewById(R.id.spinner_signup_role) as AutoCompleteTextView
-        val dept_dropdown = findViewById(R.id.spinner_signup_dept) as AutoCompleteTextView
-        val sec_dropdown = findViewById(R.id.spinner_signup_sec) as AutoCompleteTextView
-        val fullname = findViewById(R.id.editText_signup_fullname) as EditText
-        val roll_num = findViewById(R.id.editText_signup_rollno) as EditText
-        val email = findViewById(R.id.editText_signup_email) as EditText
-        val mobile = findViewById(R.id.editText_signup_mobile) as EditText
-        val uname = findViewById(R.id.editText_signup_uname) as EditText
-        val pwd = findViewById(R.id.editText_signup_pwd) as EditText
-        val btn_create = findViewById(R.id.button_signup_create) as Button
-        val btn_clear = findViewById(R.id.button_signup_clear) as Button
+        val clg_dropdown = findViewById<AutoCompleteTextView>(R.id.spinner_signup_clg)
+        val role_dropdown = findViewById<AutoCompleteTextView>(R.id.spinner_signup_role)
+        val dept_dropdown = findViewById<AutoCompleteTextView>(R.id.spinner_signup_dept)
+        val sec_dropdown = findViewById<AutoCompleteTextView>(R.id.spinner_signup_sec)
+        val fullname = findViewById<EditText>(R.id.editText_signup_fullname)
+        val roll_num = findViewById<EditText>(R.id.editText_signup_rollno)
+        val email = findViewById<EditText>(R.id.editText_signup_email)
+        val mobile = findViewById<EditText>(R.id.editText_signup_mobile)
+        val uname = findViewById<EditText>(R.id.editText_signup_uname)
+        val pwd = findViewById<EditText>(R.id.editText_signup_pwd)
+        val btn_create = findViewById<Button>(R.id.button_signup_create)
+        val btn_clear = findViewById<Button>(R.id.button_signup_clear)
 
         val colleges = res.getStringArray(R.array.signup_clg)
         val clg_adapter = ArrayAdapter(this, R.layout.dropdown_menu_popup_item, colleges)
@@ -103,20 +102,20 @@ class SignupActivity : AppCompatActivity() {
         val sec_adapter = ArrayAdapter(this, R.layout.dropdown_menu_popup_item, secs)
         sec_dropdown.setAdapter(sec_adapter)
 
-        clg_dropdown.onItemClickListener = AdapterView.OnItemClickListener{parent,view,position,id->
-            clg_dropdown.setError(null)
+        clg_dropdown.onItemClickListener = AdapterView.OnItemClickListener{_,_,_,_ ->
+            clg_dropdown.error = null
         }
 
-        role_dropdown.onItemClickListener = AdapterView.OnItemClickListener{parent,view,position,id->
-            role_dropdown.setError(null)
+        role_dropdown.onItemClickListener = AdapterView.OnItemClickListener{_,_,_,_ ->
+            role_dropdown.error = null
         }
 
-        dept_dropdown.onItemClickListener = AdapterView.OnItemClickListener{parent,view,position,id->
-            dept_dropdown.setError(null)
+        dept_dropdown.onItemClickListener = AdapterView.OnItemClickListener{_,_,_,_ ->
+            dept_dropdown.error = null
         }
 
-        sec_dropdown.onItemClickListener = AdapterView.OnItemClickListener{parent,view,position,id->
-            sec_dropdown.setError(null)
+        sec_dropdown.onItemClickListener = AdapterView.OnItemClickListener{_,_,_,_ ->
+            sec_dropdown.error = null
         }
 
 
@@ -129,9 +128,9 @@ class SignupActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence, start: Int,
                                        before: Int, count: Int) {
-                fullname.setError(null)
-                if(s.isNullOrBlank()){
-                    fullname.setError(getString(R.string.text_error_msg))
+                fullname.error = null
+                if(s.isBlank()){
+                    fullname.error = getString(R.string.text_error_msg)
                 }
             }
         })
@@ -145,9 +144,9 @@ class SignupActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence, start: Int,
                                        before: Int, count: Int) {
-                roll_num.setError(null)
-                if(s.isNullOrBlank()){
-                    roll_num.setError(getString(R.string.text_error_msg))
+                roll_num.error = null
+                if(s.isBlank()){
+                    roll_num.error = getString(R.string.text_error_msg)
                 }
             }
         })
@@ -161,9 +160,9 @@ class SignupActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence, start: Int,
                                        before: Int, count: Int) {
-                email.setError(null)
-                if(s.isNullOrBlank()){
-                    email.setError(getString(R.string.text_error_msg))
+                email.error = null
+                if(s.isBlank()){
+                    email.error = getString(R.string.text_error_msg)
                 }
             }
         })
@@ -177,9 +176,9 @@ class SignupActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence, start: Int,
                                        before: Int, count: Int) {
-                mobile.setError(null)
-                if(s.isNullOrBlank()){
-                    mobile.setError(getString(R.string.text_error_msg))
+                mobile.error = null
+                if(s.isBlank()){
+                    mobile.error = getString(R.string.text_error_msg)
                 }
             }
         })
@@ -193,9 +192,9 @@ class SignupActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence, start: Int,
                                        before: Int, count: Int) {
-                uname.setError(null)
-                if(s.isNullOrBlank()){
-                    uname.setError(getString(R.string.text_error_msg))
+                uname.error = null
+                if(s.isBlank()){
+                    uname.error = getString(R.string.text_error_msg)
                 }
             }
         })
@@ -209,77 +208,77 @@ class SignupActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence, start: Int,
                                        before: Int, count: Int) {
-                pwd.setError(null)
-                if(s.isNullOrBlank()){
-                    pwd.setError(getString(R.string.text_error_msg))
+                pwd.error = null
+                if(s.isBlank()){
+                    pwd.error = getString(R.string.text_error_msg)
                 }
             }
         })
 
         btn_clear.setOnClickListener {
             fullname.text.clear()
-            fullname.setError(null)
+            fullname.error = null
             roll_num.text.clear()
-            roll_num.setError(null)
+            roll_num.error = null
             email.text.clear()
-            email.setError(null)
+            email.error = null
             mobile.text.clear()
-            mobile.setError(null)
+            mobile.error = null
             uname.text.clear()
-            uname.setError(null)
+            uname.error = null
             pwd.text.clear()
-            pwd.setError(null)
+            pwd.error = null
             clg_dropdown.text.clear()
-            clg_dropdown.setError(null)
+            clg_dropdown.error = null
             role_dropdown.text.clear()
-            role_dropdown.setError(null)
+            role_dropdown.error = null
             dept_dropdown.text.clear()
-            dept_dropdown.setError(null)
+            dept_dropdown.error = null
             sec_dropdown.text.clear()
-            sec_dropdown.setError(null)
+            sec_dropdown.error = null
 
         }
 
         btn_create.setOnClickListener {
-            var valid: Boolean = true
-            if(fullname.text.isNullOrBlank()){
-                fullname.setError(getString(R.string.text_error_msg))
+            var valid = true
+            if(fullname.text.isBlank()){
+                fullname.error = getString(R.string.text_error_msg)
                 valid = false
             }
-            if(roll_num.text.isNullOrBlank()){
-                roll_num.setError(getString(R.string.text_error_msg))
+            if(roll_num.text.isBlank()){
+                roll_num.error = getString(R.string.text_error_msg)
                 valid = false
             }
-            if(email.text.isNullOrBlank()){
-                email.setError(getString(R.string.text_error_msg))
+            if(email.text.isBlank()){
+                email.error = getString(R.string.text_error_msg)
                 valid = false
             }
-            if(mobile.text.isNullOrBlank()){
-                mobile.setError(getString(R.string.text_error_msg))
+            if(mobile.text.isBlank()){
+                mobile.error = getString(R.string.text_error_msg)
                 valid = false
             }
-            if(uname.text.isNullOrBlank()){
-                uname.setError(getString(R.string.text_error_msg))
+            if(uname.text.isBlank()){
+                uname.error = getString(R.string.text_error_msg)
                 valid = false
             }
-            if(pwd.text.isNullOrBlank()){
-                pwd.setError(getString(R.string.text_error_msg))
+            if(pwd.text.isBlank()){
+                pwd.error = getString(R.string.text_error_msg)
                 valid = false
             }
-            if(clg_dropdown.text.isNullOrBlank()){
-                clg_dropdown.setError(getString(R.string.text_error_msg))
+            if(clg_dropdown.text.isBlank()){
+                clg_dropdown.error = getString(R.string.text_error_msg)
                 valid = false
             }
-            if(role_dropdown.text.isNullOrBlank()){
-                role_dropdown.setError(getString(R.string.text_error_msg))
+            if(role_dropdown.text.isBlank()){
+                role_dropdown.error = getString(R.string.text_error_msg)
                 valid = false
             }
-            if(dept_dropdown.text.isNullOrBlank()){
-                dept_dropdown.setError(getString(R.string.text_error_msg))
+            if(dept_dropdown.text.isBlank()){
+                dept_dropdown.error = getString(R.string.text_error_msg)
                 valid = false
             }
-            if(sec_dropdown.text.isNullOrBlank()){
-                sec_dropdown.setError(getString(R.string.text_error_msg))
+            if(sec_dropdown.text.isBlank()){
+                sec_dropdown.error = getString(R.string.text_error_msg)
                 valid = false
             }
 
@@ -293,12 +292,12 @@ class SignupActivity : AppCompatActivity() {
                 val username = uname.text.toString().trim()
                 val password = pwd.text.toString().trim()
                 val dept = dept_dropdown.text.toString().trim()
-                val sec = sec_dropdown.text.toString().trim()
+//                val sec = sec_dropdown.text.toString().trim()
 
                 if (ConnectivityUtils.isConnected(this)) {
                     webService.signup(fname, rno, clg, role, mail, phno, username, password, dept, callback)
                 } else {
-                    val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this, R.drawable.ic_warning_black_24dp)!!);
+                    val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this, R.drawable.ic_warning_black_24dp)!!)
                     DrawableCompat.setTint(drawable, ContextCompat.getColor(this, android.R.color.holo_orange_dark))
                     val alertDialog = AlertDialog.Builder(this).setTitle("No Internet Connection")
                         .setMessage("Please check your internet connection and try again")

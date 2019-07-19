@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
@@ -31,23 +30,23 @@ class MainActivity : AppCompatActivity() {
 
     private val callback = object : Callback<String> {
         override fun onFailure(call: Call<String>?, t: Throwable?) {
-            Log.e("MainActivity", "Problem calling API", t)
+//            Log.e("MainActivity", "Problem calling API", t)
             Toast.makeText(this@MainActivity, "Error calling API", Toast.LENGTH_LONG).show()
         }
 
         override fun onResponse(call: Call<String>?, response: Response<String>?) {
-            Log.i("Response", response?.body().toString());
+//            Log.i("Response", response?.body().toString());
             response?.isSuccessful.let {
                 val loginStatus = response?.body().toString().trim()
                 if (loginStatus == "success") {
-                    val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this@MainActivity, R.drawable.ic_account_circle_black_24dp)!!);
+                    val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this@MainActivity, R.drawable.ic_account_circle_black_24dp)!!)
                     DrawableCompat.setTint(drawable, ContextCompat.getColor(this@MainActivity, R.color.colorPrimary))
                     val alertDialog = AlertDialog.Builder(this@MainActivity).setTitle("Welcome")
                         .setMessage("Logged in successfully!")
                         .setPositiveButton(android.R.string.ok) { _, _ ->
-                            val fetchQueIntent = Intent(this@MainActivity, FetchQuestions::class.java);
+                            val fetchQueIntent = Intent(this@MainActivity, FetchQuestions::class.java)
                             fetchQueIntent.putExtra("uname", uname)
-                            startActivity(fetchQueIntent);
+                            startActivity(fetchQueIntent)
                         }
                         .setIcon(drawable)
                         .show()
@@ -56,10 +55,10 @@ class MainActivity : AppCompatActivity() {
                         setBackgroundColor(resources.getColor(R.color.colorPrimary))
                         setTextColor(Color.WHITE)
                     }
-                    alertDialog.setCanceledOnTouchOutside(false);
+                    alertDialog.setCanceledOnTouchOutside(false)
                 }
                 else {
-                    val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this@MainActivity, R.drawable.ic_warning_black_24dp)!!);
+                    val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this@MainActivity, R.drawable.ic_warning_black_24dp)!!)
                     DrawableCompat.setTint(drawable, ContextCompat.getColor(this@MainActivity, android.R.color.holo_red_dark))
                     val alertDialog = AlertDialog.Builder(this@MainActivity).setTitle("Login Failed")
                         .setMessage("Please check your credentials and try again")
@@ -84,13 +83,13 @@ class MainActivity : AppCompatActivity() {
         actionBar?.hide()
 
         // get reference to all views
-        var et_username = findViewById(R.id.editText_login_username) as EditText
-        var et_password = findViewById(R.id.editText_login_pwd) as EditText
-        var btn_login = findViewById(R.id.button_login) as Button
-        var btn_clear = findViewById(R.id.button_login_cancel) as Button
-        var tv_forgotpwd = findViewById(R.id.textView_login_forgotpwd) as TextView
-        var tv_resetpwd = findViewById(R.id.textView_login_resetpwd) as TextView
-        var btn_signup = findViewById(R.id.button_signup) as Button
+        val et_username = findViewById<EditText>(R.id.editText_login_username)
+        val et_password = findViewById<EditText>(R.id.editText_login_pwd)
+        val btn_login = findViewById<Button>(R.id.button_login)
+        val btn_clear = findViewById<Button>(R.id.button_login_cancel)
+        val tv_forgotpwd = findViewById<TextView>(R.id.textView_login_forgotpwd)
+        val tv_resetpwd = findViewById<TextView>(R.id.textView_login_resetpwd)
+        val btn_signup = findViewById<Button>(R.id.button_signup)
 
         et_username.addTextChangedListener(object : TextWatcher {
 
@@ -102,9 +101,9 @@ class MainActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence, start: Int,
                                        before: Int, count: Int) {
 
-                et_username.setError(null)
-                if(s.length == 0){
-                    et_username.setError("Field cannot be empty")
+                et_username.error = null
+                if(s.isBlank()){
+                    et_username.error = getString(R.string.text_error_msg)
                 }
             }
         })
@@ -119,9 +118,9 @@ class MainActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence, start: Int,
                                        before: Int, count: Int) {
 
-                et_password.setError(null)
-                if(s.length == 0){
-                    et_password.setError("Field cannot be empty")
+                et_password.error = null
+                if(s.isBlank()){
+                    et_password.error = getString(R.string.text_error_msg)
                 }
             }
         })
@@ -129,20 +128,19 @@ class MainActivity : AppCompatActivity() {
         btn_clear.setOnClickListener{
             et_username.text.clear()
             et_password.text.clear()
-            et_username.setError(null)
-            et_password.setError(null)
+            et_username.error = null
+            et_password.error = null
         }
 
         // set on-click listener
         btn_login.setOnClickListener {
-            Log.d("Main", "Login btn clicked")
             var valid = true
-            if(et_username.text.isNullOrBlank()){
-                et_username.setError("Field cannot be empty")
+            if(et_username.text.isBlank()){
+                et_username.error = getString(R.string.text_error_msg)
                 valid = false
             }
-            if(et_password.text.isNullOrBlank()){
-                et_password.setError("Field cannot be empty")
+            if(et_password.text.isBlank()){
+                et_password.error = getString(R.string.text_error_msg)
                 valid = false
             }
             if(valid){
@@ -152,7 +150,7 @@ class MainActivity : AppCompatActivity() {
                 if (ConnectivityUtils.isConnected(this)) {
                     webService.login(uname,pwd,callback)
                 } else {
-                    val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this, R.drawable.ic_warning_black_24dp)!!);
+                    val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this, R.drawable.ic_warning_black_24dp)!!)
                     DrawableCompat.setTint(drawable, ContextCompat.getColor(this, android.R.color.holo_orange_dark))
                     val alertDialog = AlertDialog.Builder(this).setTitle("No Internet Connection")
                         .setMessage("Please check your internet connection and try again")
@@ -169,19 +167,16 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn_signup.setOnClickListener{
-            Log.d("Main", "Signup btn clicked")
             val signupIntent = Intent(this, SignupActivity::class.java)
             startActivity(signupIntent)
 
         }
 
         tv_forgotpwd.setOnClickListener{
-            Log.d("Main", "Forgot pwd btn clicked")
             Toast.makeText(this@MainActivity, "Forgot Password: Implementation Pending", Toast.LENGTH_LONG).show()
         }
 
         tv_resetpwd.setOnClickListener{
-            Log.d("Main", "Reset pwd btn clicked")
             Toast.makeText(this@MainActivity, "Reset Password: Implementation Pending", Toast.LENGTH_LONG).show()
         }
     }
@@ -195,7 +190,6 @@ class MainActivity : AppCompatActivity() {
         // Handle presses on the action bar menu items
         when (item.itemId) {
             R.id.menu_logout -> {
-                Log.d("Main","Logout")
                 return true
             }
         }

@@ -3,7 +3,6 @@ package com.example.bvrith_svesqbank.ui.activities
 import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -32,22 +31,22 @@ class DisplayAnswers : AppCompatActivity() {
 
     private val callback = object : Callback<String> {
         override fun onFailure(call: Call<String>?, t: Throwable?) {
-            Log.e("DisplayAns", "Problem calling API", t)
+//            Log.e("DisplayAns", "Problem calling API", t)
             Toast.makeText(this@DisplayAnswers, "Error sending scores", Toast.LENGTH_LONG).show()
         }
 
         override fun onResponse(call: Call<String>?, response: Response<String>?) {
-            Log.i("Response", response?.body().toString());
+//            Log.i("Response", response?.body().toString());
             response?.isSuccessful.let {
                 val status = response?.body().toString().trim()
                 if (status == "success") {
-                    val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this@DisplayAnswers, R.drawable.ic_check_circle_black_24dp)!!);
+                    val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this@DisplayAnswers, R.drawable.ic_check_circle_black_24dp)!!)
                     DrawableCompat.setTint(drawable, ContextCompat.getColor(this@DisplayAnswers, R.color.colorPrimary))
                     val alertDialog = AlertDialog.Builder(this@DisplayAnswers).setTitle("Test Score")
-                        .setMessage("Your test score is ${score} / ${total}")
+                        .setMessage("Your test score is $score / $total")
                         .setPositiveButton(android.R.string.ok) { _, _ ->
-                            val layout = findViewById(R.id.layout_ans) as LinearLayout
-                            layout.setVisibility(View.VISIBLE)
+                            val layout = findViewById<LinearLayout>(R.id.layout_ans)
+                            layout.visibility = View.VISIBLE
                         }
                         .setIcon(drawable)
                         .show()
@@ -69,32 +68,32 @@ class DisplayAnswers : AppCompatActivity() {
         setContentView(R.layout.activity_display_answers)
 
         val selected_opts = intent.getIntArrayExtra("selected_options")
+        @Suppress("UNCHECKED_CAST")
         val ques : ArrayList<Question> = intent.getSerializableExtra("questions") as ArrayList<Question>
         score = intent.getIntExtra("score", -1)
         total = ques.size
         val uname = intent.getStringExtra("uname")
         val subj = intent.getStringExtra("subj")
 
-        val score_text = findViewById(R.id.textView_score) as TextView
-        val recyclerView = findViewById(R.id.recyclerView_ans) as RecyclerView
-        val layout = findViewById(R.id.layout_ans) as LinearLayout
+        val score_text = findViewById<TextView>(R.id.textView_score)
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView_ans)
+        val layout = findViewById<LinearLayout>(R.id.layout_ans)
 
-        layout.setVisibility(View.GONE)
+        layout.visibility = View.GONE
 
-        var score_msg =  "Test Score: $score"
+        val score_msg =  "Test Score: $score"
         score_text.text = score_msg
-        Log.d("DisplayAns", score_msg)
 
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
-        val adapter = AnswersAdapter(ques, selected_opts)
+        val adapter = AnswersAdapter(ques, selected_opts!!)
 
         recyclerView.adapter = adapter
 
         if (ConnectivityUtils.isConnected(this@DisplayAnswers)) {
-            webService.sendScore(uname, subj, score, callback)
+            webService.sendScore(uname!!, subj!!, score, callback)
         } else {
-            val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this, R.drawable.ic_warning_black_24dp)!!);
+            val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this, R.drawable.ic_warning_black_24dp)!!)
             DrawableCompat.setTint(drawable, ContextCompat.getColor(this, R.color.colorPrimary))
             val alertDialog = AlertDialog.Builder(this).setTitle("No Internet Connection")
                 .setMessage("Please check your internet connection and try again")
@@ -118,7 +117,6 @@ class DisplayAnswers : AppCompatActivity() {
         // Handle presses on the action bar menu items
         when (item.itemId) {
             R.id.menu_logout -> {
-                Log.d("DisplayAns","Logout")
                 setResult(RESULT_OK)
                 finish()
                 return true

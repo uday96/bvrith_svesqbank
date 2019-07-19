@@ -1,4 +1,4 @@
-package com.bvrith.svesqbank.ui.activities
+package com.bvrith.svesqbank.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.View

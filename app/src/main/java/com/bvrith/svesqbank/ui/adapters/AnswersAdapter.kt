@@ -1,4 +1,4 @@
-package com.bvrith.svesqbank.ui.activities
+package com.bvrith.svesqbank.ui.adapters
 
 import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
@@ -54,15 +54,15 @@ class AnswersAdapter(private val questions: ArrayList<Question>, private val sel
                 else -> "Invalid Response"
             }
             val isCorrect = my_opt == que.correct_answer.toInt()
-            var que_color = ContextCompat.getColor(itemView.context, android.R.color.holo_red_dark)
+            var que_color = ContextCompat.getColor(itemView.context, android.R.color.holo_red_light)
             if(isCorrect){
-                que_color = ContextCompat.getColor(itemView.context, android.R.color.holo_green_dark)
+                que_color = ContextCompat.getColor(itemView.context, android.R.color.holo_green_light)
             }
             que_title.text = SpannableStringBuilder()
                 .bold { append((sno+1).toString() + ". " + que.question) }
             selected_ans.text = SpannableStringBuilder()
                 .bold { append("Your Ans: ") }
-                .color(que_color, { append(my_ans) })
+                .bold {  color(que_color, { append(my_ans) })}
             correct_ans.text = SpannableStringBuilder()
                 .bold { append("Correct Ans: ") }
                 .append(ans)

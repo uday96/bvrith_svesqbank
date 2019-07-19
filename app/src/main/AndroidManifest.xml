@@ -15,7 +15,7 @@
             android:usesCleartextTraffic="true">
         <activity
                 android:name="com.bvrith.svesqbank.ui.activities.MainActivity"
-                android:label="BVRITH SVES QBank"
+                android:label="BVRITH SVESQBank"
                 android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

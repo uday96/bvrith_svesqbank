@@ -16,9 +16,10 @@ import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bvrith.svesqbank.R
-import com.bvrith.svesqbank.utils.ConnectivityUtils
 import com.bvrith.svesqbank.api.WebServiceUtil
 import com.bvrith.svesqbank.data.Question
+import com.bvrith.svesqbank.ui.adapters.AnswersAdapter
+import com.bvrith.svesqbank.utils.ConnectivityUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

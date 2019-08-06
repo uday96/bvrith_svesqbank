@@ -153,8 +153,8 @@ class MainActivity : AppCompatActivity() {
                 valid = false
             }
             if(valid){
-                uname = et_username.text.toString()
-                val pwd = et_password.text.toString()
+                uname = et_username.text.toString().trim()
+                val pwd = et_password.text.toString().trim()
 
                 if (ConnectivityUtils.isConnected(this)) {
                     webService.login(uname,pwd,callback)

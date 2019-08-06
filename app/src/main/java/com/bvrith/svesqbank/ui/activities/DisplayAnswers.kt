@@ -33,7 +33,7 @@ class DisplayAnswers : AppCompatActivity() {
     private val callback = object : Callback<String> {
         override fun onFailure(call: Call<String>?, t: Throwable?) {
 //            Log.e("DisplayAns", "Problem calling API", t)
-            Toast.makeText(this@DisplayAnswers, "Error sending scores", Toast.LENGTH_LONG).show()
+            Toast.makeText(this@DisplayAnswers, "Please go back and try again", Toast.LENGTH_LONG).show()
         }
 
         override fun onResponse(call: Call<String>?, response: Response<String>?) {
@@ -58,7 +58,7 @@ class DisplayAnswers : AppCompatActivity() {
                     }
                 }
                 else{
-                    Toast.makeText(this@DisplayAnswers, "Error sending scores", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@DisplayAnswers, "Please go back and try again", Toast.LENGTH_LONG).show()
                 }
             }
         }

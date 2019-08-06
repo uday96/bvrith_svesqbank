@@ -14,8 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.bvrith.svesqbank.R
-import com.bvrith.svesqbank.utils.ConnectivityUtils
 import com.bvrith.svesqbank.api.WebServiceUtil
+import com.bvrith.svesqbank.utils.ConnectivityUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,7 +32,7 @@ class FetchQuestions : AppCompatActivity(){
     private val callback = object : Callback<String> {
         override fun onFailure(call: Call<String>?, t: Throwable?) {
 //            Log.e("MainActivity", "Problem calling API", t)
-            Toast.makeText(this@FetchQuestions, "Error calling API", Toast.LENGTH_LONG).show()
+            Toast.makeText(this@FetchQuestions, "Please go back and try again", Toast.LENGTH_LONG).show()
         }
 
         override fun onResponse(call: Call<String>?, response: Response<String>?) {
@@ -149,6 +149,7 @@ class FetchQuestions : AppCompatActivity(){
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
         // check if the requestCode is the wanted one and if the result is what we are expecting
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
             finish()

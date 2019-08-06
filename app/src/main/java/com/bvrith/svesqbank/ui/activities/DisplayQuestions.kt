@@ -38,7 +38,7 @@ class DisplayQuestions : AppCompatActivity() {
     private val callback = object : Callback<Questions> {
         override fun onFailure(call: Call<Questions>?, t: Throwable?) {
 //            Log.e("DisplayQue", "Problem calling API", t)
-            Toast.makeText(this@DisplayQuestions, "Error calling API", Toast.LENGTH_LONG).show()
+            Toast.makeText(this@DisplayQuestions, "Please go back and try again", Toast.LENGTH_LONG).show()
         }
 
         override fun onResponse(call: Call<Questions>?, response: Response<Questions>?) {
@@ -159,7 +159,7 @@ class DisplayQuestions : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
+        super.onActivityResult(requestCode, resultCode, data)
         // check if the requestCode is the wanted one and if the result is what we are expecting
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
             setResult(RESULT_OK)

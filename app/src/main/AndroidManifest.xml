@@ -54,10 +54,10 @@
                 android:name="com.bvrith.svesqbank.ui.activities.DisplayAnswers"
                 android:label="Answers"
                 android:launchMode="singleTop"
-                android:parentActivityName="com.bvrith.svesqbank.ui.activities.DisplayQuestions">
+                android:parentActivityName="com.bvrith.svesqbank.ui.activities.FetchQuestions">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="com.bvrith.svesqbank.ui.activities.DisplayQuestions"/>
+                    android:value="com.bvrith.svesqbank.ui.activities.FetchQuestions"/>
         </activity>
     </application>
 

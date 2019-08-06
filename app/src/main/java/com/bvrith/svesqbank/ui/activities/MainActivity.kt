@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
     private val callback = object : Callback<String> {
         override fun onFailure(call: Call<String>?, t: Throwable?) {
 //            Log.e("MainActivity", "Problem calling API", t)
-            Toast.makeText(this@MainActivity, "Error calling API", Toast.LENGTH_LONG).show()
+            Toast.makeText(this@MainActivity, "Please go back and try again", Toast.LENGTH_LONG).show()
         }
 
         override fun onResponse(call: Call<String>?, response: Response<String>?) {

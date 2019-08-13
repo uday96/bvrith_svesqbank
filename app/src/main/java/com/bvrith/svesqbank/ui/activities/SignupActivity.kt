@@ -43,7 +43,7 @@ class SignupActivity : AppCompatActivity() {
                 if (loginStatus == "success") {
                     val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this@SignupActivity, R.drawable.ic_account_circle_black_24dp)!!)
                     DrawableCompat.setTint(drawable, ContextCompat.getColor(this@SignupActivity, R.color.colorPrimary))
-                    val alertDialog = AlertDialog.Builder(this@SignupActivity).setTitle("Account Created Successfully")
+                    val alertDialog = AlertDialog.Builder(this@SignupActivity).setTitle("Account Creation Successful")
                         .setMessage("Please login to continue.")
                         .setPositiveButton(android.R.string.ok) { _, _ ->
                             finish()
@@ -57,11 +57,25 @@ class SignupActivity : AppCompatActivity() {
                     }
                     alertDialog.setCanceledOnTouchOutside(false)
                 }
+                else if (loginStatus == "exists") {
+                    val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this@SignupActivity, R.drawable.ic_warning_black_24dp)!!)
+                    DrawableCompat.setTint(drawable, ContextCompat.getColor(this@SignupActivity, android.R.color.holo_red_dark))
+                    val alertDialog = AlertDialog.Builder(this@SignupActivity).setTitle("Account Creation Failed")
+                        .setMessage("Email already exists. Please use Forgot/Reset password")
+                        .setPositiveButton(android.R.string.ok) { _, _ -> }
+                        .setIcon(drawable)
+                        .show()
+                    val button = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE)
+                    with(button) {
+                        setBackgroundColor(resources.getColor(R.color.colorPrimary))
+                        setTextColor(Color.WHITE)
+                    }
+                }
                 else {
                     val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this@SignupActivity, R.drawable.ic_warning_black_24dp)!!)
                     DrawableCompat.setTint(drawable, ContextCompat.getColor(this@SignupActivity, android.R.color.holo_red_dark))
-                    val alertDialog = AlertDialog.Builder(this@SignupActivity).setTitle("Login Failed")
-                        .setMessage("Please check your credentials and try again")
+                    val alertDialog = AlertDialog.Builder(this@SignupActivity).setTitle("Account Creation Failed")
+                        .setMessage("Please go back and try again")
                         .setPositiveButton(android.R.string.ok) { _, _ -> }
                         .setIcon(drawable)
                         .show()
@@ -86,7 +100,6 @@ class SignupActivity : AppCompatActivity() {
         val sec_dropdown = findViewById<AutoCompleteTextView>(R.id.spinner_signup_sec)
         val fullname = findViewById<EditText>(R.id.editText_signup_fullname)
         val roll_num = findViewById<EditText>(R.id.editText_signup_rollno)
-        val email = findViewById<EditText>(R.id.editText_signup_email)
         val mobile = findViewById<EditText>(R.id.editText_signup_mobile)
         val uname = findViewById<EditText>(R.id.editText_signup_uname)
         val pwd = findViewById<EditText>(R.id.editText_signup_pwd)
@@ -174,22 +187,6 @@ class SignupActivity : AppCompatActivity() {
             }
         })
 
-        email.addTextChangedListener(object : TextWatcher {
-
-            override fun afterTextChanged(s: Editable) {}
-
-            override fun beforeTextChanged(s: CharSequence, start: Int,
-                                           count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence, start: Int,
-                                       before: Int, count: Int) {
-                email.error = null
-                if(s.isBlank()){
-                    email.error = getString(R.string.text_error_msg)
-                }
-            }
-        })
-
         mobile.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(s: Editable) {}
@@ -243,8 +240,6 @@ class SignupActivity : AppCompatActivity() {
             fullname.error = null
             roll_num.text.clear()
             roll_num.error = null
-            email.text.clear()
-            email.error = null
             mobile.text.clear()
             mobile.error = null
             uname.text.clear()
@@ -270,14 +265,6 @@ class SignupActivity : AppCompatActivity() {
             }
             if(roll_num.text.isBlank()){
                 roll_num.error = getString(R.string.text_error_msg)
-                valid = false
-            }
-            if(email.text.isBlank()){
-                email.error = getString(R.string.text_error_msg)
-                valid = false
-            }
-            else if(!TextUtils.isEmailValid(email.text.toString().trim())){
-                email.error = getString(R.string.email_error_msg)
                 valid = false
             }
             if(mobile.text.isBlank()){
@@ -318,7 +305,7 @@ class SignupActivity : AppCompatActivity() {
                 val rno = roll_num.text.toString().trim()
                 val clg = clg_dropdown.text.toString().trim()
                 val role = role_dropdown.text.toString().trim()
-                val mail = email.text.toString().trim()
+                val mail = ""
                 val phno = mobile.text.toString().trim()
                 val username = uname.text.toString().trim()
                 val password = pwd.text.toString().trim()

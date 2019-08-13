@@ -62,29 +62,6 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!--<LinearLayout-->
-                        <!--android:orientation="horizontal"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:gravity="center"-->
-                        <!--android:layout_marginTop="8dp">-->
-                        <!--&lt;!&ndash;<Spinner&ndash;&gt;-->
-                                <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-                                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                                <!--&lt;!&ndash;android:id="@+id/spinner_signup_clg"&ndash;&gt;-->
-                                <!--&lt;!&ndash;android:entries="@array/signup_clg"&ndash;&gt;-->
-                                <!--&lt;!&ndash;android:spinnerMode="dialog"&ndash;&gt;-->
-                                <!--&lt;!&ndash;android:prompt="@string/signup_clg_prompt"/>&ndash;&gt;-->
-
-                        <!--&lt;!&ndash;<Spinner&ndash;&gt;-->
-                                <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-                                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                                <!--&lt;!&ndash;android:id="@+id/spinner_signup_role"&ndash;&gt;-->
-                                <!--&lt;!&ndash;android:entries="@array/signup_role"&ndash;&gt;-->
-                                <!--&lt;!&ndash;android:spinnerMode="dialog"&ndash;&gt;-->
-                                <!--&lt;!&ndash;android:prompt="@string/signup_role_prompt"/>&ndash;&gt;-->
-                <!--</LinearLayout>-->
-
                 <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                         android:layout_width="match_parent"
@@ -124,52 +101,12 @@
                     <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/signup_email"
-                            android:id="@+id/editText_signup_email"
-                            android:inputType="textEmailAddress"
-                            android:maxLines="1"/>
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_7sdp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
                             android:hint="@string/signup_mobile"
                             android:id="@+id/editText_signup_mobile"
                             android:inputType="phone"
                             android:maxLines="1"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <!--<LinearLayout-->
-                        <!--android:orientation="horizontal"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:gravity="center"-->
-                        <!--android:layout_marginTop="8dp">-->
-
-                    <!--<Spinner-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:id="@+id/spinner_signup_dept"-->
-                            <!--android:entries="@array/dept_list"-->
-                            <!--android:spinnerMode="dialog"-->
-                            <!--android:prompt="@string/dept_prompt"/>-->
-
-                    <!--<Spinner-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:id="@+id/spinner_signup_sec"-->
-                            <!--android:entries="@array/signup_sec"-->
-                            <!--android:spinnerMode="dialog"-->
-                            <!--android:prompt="@string/signup_sec_prompt"/>-->
-                <!--</LinearLayout>-->
 
                 <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"

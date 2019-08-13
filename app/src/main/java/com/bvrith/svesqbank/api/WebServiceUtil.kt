@@ -39,8 +39,8 @@ class WebServiceUtil {
         service.getSubjects(dept).enqueue(callback)
     }
 
-    fun getQuestions(dept: String, subj: String, level: Int, callback: Callback<Questions>) {
-        service.getQuestions(dept, subj, level).enqueue(callback)
+    fun getQuestions(dept: String, subj: String, unit: String, level: Int, callback: Callback<Questions>) {
+        service.getQuestions(dept, subj, unit, level).enqueue(callback)
     }
 
     fun sendScore(uname: String, subj: String, score: Int, callback: Callback<String>) {
@@ -49,5 +49,13 @@ class WebServiceUtil {
 
     fun signup(name: String, rollnumber: String, college: String, role: String, mail: String, mobile_number: String, uname: String, password: String, dept: String, sec: String, callback: Callback<String>) {
         service.signup(name, rollnumber, college, role, mail, mobile_number, uname, password, dept, sec).enqueue(callback)
+    }
+
+    fun resetPwd(uname: String, callback: Callback<String>) {
+        service.resetPwd(uname).enqueue(callback)
+    }
+
+    fun forgotPwd(uname: String, pwd: String, callback: Callback<String>) {
+        service.forgotPwd(uname, pwd).enqueue(callback)
     }
 }

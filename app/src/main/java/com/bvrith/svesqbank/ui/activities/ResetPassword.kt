@@ -2,19 +2,15 @@ package com.bvrith.svesqbank.ui.activities
 
 import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.Rect
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.Menu
-import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -28,30 +24,25 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainActivity : AppCompatActivity() {
+class ResetPassword : AppCompatActivity() {
 
     private val webService = WebServiceUtil()
-    private var uname: String = ""
 
     private val callback = object : Callback<String> {
         override fun onFailure(call: Call<String>?, t: Throwable?) {
-//            Log.e("MainActivity", "Problem calling API", t)
-            Toast.makeText(this@MainActivity, "Please go back and try again", Toast.LENGTH_LONG).show()
+            Toast.makeText(this@ResetPassword, "Please go back and try again", Toast.LENGTH_LONG).show()
         }
 
         override fun onResponse(call: Call<String>?, response: Response<String>?) {
-//            Log.i("Response", response?.body().toString());
             response?.isSuccessful.let {
-                val loginStatus = response?.body().toString().trim()
-                if (loginStatus == "success") {
-                    val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this@MainActivity, R.drawable.ic_account_circle_black_24dp)!!)
-                    DrawableCompat.setTint(drawable, ContextCompat.getColor(this@MainActivity, R.color.colorPrimary))
-                    val alertDialog = AlertDialog.Builder(this@MainActivity).setTitle("Welcome")
-                        .setMessage("Logged in successfully!")
+                val resetStatus = response?.body().toString().trim()
+                if (resetStatus == "success") {
+                    val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this@ResetPassword, R.drawable.ic_account_circle_black_24dp)!!)
+                    DrawableCompat.setTint(drawable, ContextCompat.getColor(this@ResetPassword, R.color.colorPrimary))
+                    val alertDialog = AlertDialog.Builder(this@ResetPassword).setTitle("Password Reset Successful")
+                        .setMessage("Your password has been reset to 123456")
                         .setPositiveButton(android.R.string.ok) { _, _ ->
-                            val fetchQueIntent = Intent(this@MainActivity, FetchQuestions::class.java)
-                            fetchQueIntent.putExtra("uname", uname)
-                            startActivity(fetchQueIntent)
+                            finish()
                         }
                         .setIcon(drawable)
                         .show()
@@ -63,10 +54,10 @@ class MainActivity : AppCompatActivity() {
                     alertDialog.setCanceledOnTouchOutside(false)
                 }
                 else {
-                    val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this@MainActivity, R.drawable.ic_warning_black_24dp)!!)
-                    DrawableCompat.setTint(drawable, ContextCompat.getColor(this@MainActivity, android.R.color.holo_red_dark))
-                    val alertDialog = AlertDialog.Builder(this@MainActivity).setTitle("Login Failed")
-                        .setMessage("Please check your credentials and try again")
+                    val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this@ResetPassword, R.drawable.ic_warning_black_24dp)!!)
+                    DrawableCompat.setTint(drawable, ContextCompat.getColor(this@ResetPassword, android.R.color.holo_red_dark))
+                    val alertDialog = AlertDialog.Builder(this@ResetPassword).setTitle("Password Reset Failed")
+                        .setMessage("Please check your email and try again")
                         .setPositiveButton(android.R.string.ok) { _, _ -> }
                         .setIcon(drawable)
                         .show()
@@ -82,19 +73,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_reset_password)
 
-        val actionBar = supportActionBar
-        actionBar?.hide()
-
-        // get reference to all views
-        val et_username = findViewById<EditText>(R.id.editText_login_username)
-        val et_password = findViewById<EditText>(R.id.editText_login_pwd)
-        val btn_login = findViewById<Button>(R.id.button_login)
-        val btn_clear = findViewById<Button>(R.id.button_login_cancel)
-        val tv_forgotpwd = findViewById<TextView>(R.id.textView_login_forgotpwd)
-        val tv_resetpwd = findViewById<TextView>(R.id.textView_login_resetpwd)
-        val btn_signup = findViewById<Button>(R.id.button_signup)
+        val et_username = findViewById<EditText>(R.id.editText_resetpwd_email)
+        val btn_reset = findViewById<Button>(R.id.button_resetpwd_reset)
+        val btn_clear = findViewById<Button>(R.id.button_resetpwd_clear)
 
         et_username.addTextChangedListener(object : TextWatcher {
 
@@ -113,32 +96,12 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        et_password.addTextChangedListener(object : TextWatcher {
-
-            override fun afterTextChanged(s: Editable) {}
-
-            override fun beforeTextChanged(s: CharSequence, start: Int,
-                                           count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence, start: Int,
-                                       before: Int, count: Int) {
-
-                et_password.error = null
-                if(s.isBlank()){
-                    et_password.error = getString(R.string.text_error_msg)
-                }
-            }
-        })
-
         btn_clear.setOnClickListener{
             et_username.text.clear()
-            et_password.text.clear()
             et_username.error = null
-            et_password.error = null
         }
 
-        // set on-click listener
-        btn_login.setOnClickListener {
+        btn_reset.setOnClickListener {
             var valid = true
             if(et_username.text.isBlank()){
                 et_username.error = getString(R.string.text_error_msg)
@@ -148,16 +111,11 @@ class MainActivity : AppCompatActivity() {
                 et_username.error = getString(R.string.email_error_msg)
                 valid = false
             }
-            if(et_password.text.isBlank()){
-                et_password.error = getString(R.string.text_error_msg)
-                valid = false
-            }
             if(valid){
-                uname = et_username.text.toString().trim()
-                val pwd = et_password.text.toString().trim()
+                val uname = et_username.text.toString().trim()
 
                 if (ConnectivityUtils.isConnected(this)) {
-                    webService.login(uname,pwd,callback)
+                    webService.resetPwd(uname,callback)
                 } else {
                     val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this, R.drawable.ic_warning_black_24dp)!!)
                     DrawableCompat.setTint(drawable, ContextCompat.getColor(this, android.R.color.holo_orange_dark))
@@ -174,37 +132,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
-        btn_signup.setOnClickListener{
-            val signupIntent = Intent(this, SignupActivity::class.java)
-            startActivity(signupIntent)
-
-        }
-
-        tv_resetpwd.setOnClickListener{
-            val resetPwdIntent = Intent(this, ResetPassword::class.java)
-            startActivity(resetPwdIntent)
-        }
-
-        tv_forgotpwd.setOnClickListener{
-            val forgotPwdIntent = Intent(this, ForgotPassword::class.java)
-            startActivity(forgotPwdIntent)
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.action_bar_menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle presses on the action bar menu items
-        when (item.itemId) {
-            R.id.menu_logout -> {
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {

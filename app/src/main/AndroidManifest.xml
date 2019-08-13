@@ -14,7 +14,7 @@
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
         <activity
-                android:name="com.bvrith.svesqbank.ui.activities.MainActivity"
+                android:name=".ui.activities.MainActivity"
                 android:label="BVRITH SVESQBank"
                 android:launchMode="singleTop">
             <intent-filter>
@@ -24,40 +24,54 @@
             </intent-filter>
         </activity>
         <activity
-                android:name="com.bvrith.svesqbank.ui.activities.SignupActivity"
+                android:name=".ui.activities.SignupActivity"
                 android:label="Create Account"
                 android:launchMode="singleTop"
-                android:parentActivityName="com.bvrith.svesqbank.ui.activities.MainActivity">
+                android:parentActivityName=".ui.activities.MainActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="com.bvrith.svesqbank.ui.activities.MainActivity"/>
         </activity>
         <activity
-                android:name="com.bvrith.svesqbank.ui.activities.FetchQuestions"
+                android:name=".ui.activities.FetchQuestions"
                 android:label="Questions"
-                android:launchMode="singleTop"
-                android:parentActivityName="com.bvrith.svesqbank.ui.activities.MainActivity">
-            <meta-data
-                    android:name="android.support.PARENT_ACTIVITY"
-                    android:value="com.bvrith.svesqbank.ui.activities.MainActivity"/>
+                android:launchMode="singleTop">
         </activity>
         <activity
-                android:name="com.bvrith.svesqbank.ui.activities.DisplayQuestions"
+                android:name=".ui.activities.DisplayQuestions"
                 android:label="Questions"
                 android:launchMode="singleTop"
-                android:parentActivityName="com.bvrith.svesqbank.ui.activities.FetchQuestions">
+                android:parentActivityName=".ui.activities.FetchQuestions">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="com.bvrith.svesqbank.ui.activities.FetchQuestions"/>
         </activity>
         <activity
-                android:name="com.bvrith.svesqbank.ui.activities.DisplayAnswers"
+                android:name=".ui.activities.DisplayAnswers"
                 android:label="Answers"
                 android:launchMode="singleTop"
-                android:parentActivityName="com.bvrith.svesqbank.ui.activities.FetchQuestions">
+                android:parentActivityName=".ui.activities.FetchQuestions">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="com.bvrith.svesqbank.ui.activities.FetchQuestions"/>
+        </activity>
+        <activity
+                android:name=".ui.activities.ResetPassword"
+                android:label="Reset Password"
+                android:launchMode="singleTop"
+                android:parentActivityName=".ui.activities.MainActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.bvrith.svesqbank.ui.activities.MainActivity"/>
+        </activity>
+        <activity
+                android:name=".ui.activities.ForgotPassword"
+                android:label="Forgot Password"
+                android:launchMode="singleTop"
+                android:parentActivityName=".ui.activities.MainActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.bvrith.svesqbank.ui.activities.MainActivity"/>
         </activity>
     </application>
 

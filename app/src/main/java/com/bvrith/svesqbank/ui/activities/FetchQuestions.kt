@@ -26,6 +26,7 @@ class FetchQuestions : AppCompatActivity(){
     private var uname : String = ""
     private var dept : String = ""
     private var subj : String = ""
+    private var unit : String = ""
     private var level : Int = -1
     private val REQUEST_CODE = 2
 
@@ -54,6 +55,7 @@ class FetchQuestions : AppCompatActivity(){
 
         val res: Resources = resources
         val dept_dropdown = findViewById<AutoCompleteTextView>(R.id.fetch_que_dept)
+        val unit_dropdown = findViewById<AutoCompleteTextView>(R.id.fetch_que_unit)
         val level_dropdown = findViewById<AutoCompleteTextView>(R.id.fetch_que_level)
         val welcome_text = findViewById<TextView>(R.id.textView_uname)
         val btn_fetch = findViewById<Button>(R.id.button_fetch_que)
@@ -103,6 +105,16 @@ class FetchQuestions : AppCompatActivity(){
             }
         }
 
+        val unit_list = res.getStringArray(R.array.unit_list)
+        val unit_adapter = ArrayAdapter(this, R.layout.dropdown_menu_popup_item, unit_list)
+        unit_dropdown.setAdapter(unit_adapter)
+        unit_dropdown.onItemClickListener = object : AdapterView.OnItemClickListener {
+            override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                unit = parent?.getItemAtPosition(position).toString()
+                validate_btn()
+            }
+        }
+
         val level_list = res.getStringArray(R.array.level_list)
         val level_adapter = ArrayAdapter(this, R.layout.dropdown_menu_popup_item, level_list)
         level_dropdown.setAdapter(level_adapter)
@@ -118,6 +130,7 @@ class FetchQuestions : AppCompatActivity(){
             displayQueIntent.putExtra("uname", uname)
             displayQueIntent.putExtra("dept", dept)
             displayQueIntent.putExtra("subj", subj)
+            displayQueIntent.putExtra("unit", unit)
             displayQueIntent.putExtra("level", level)
             startActivityForResult(displayQueIntent, REQUEST_CODE)
         }
@@ -127,7 +140,7 @@ class FetchQuestions : AppCompatActivity(){
     fun validate_btn() {
         val btn_fetch = findViewById<Button>(R.id.button_fetch_que)
         btn_fetch.isEnabled = true
-        if (dept.isEmpty() || subj.isEmpty() || level == -1){
+        if (dept.isEmpty() || subj.isEmpty() || unit.isEmpty() || level == -1){
             btn_fetch.isEnabled = false
         }
     }

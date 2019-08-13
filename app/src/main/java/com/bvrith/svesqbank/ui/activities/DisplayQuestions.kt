@@ -59,10 +59,11 @@ class DisplayQuestions : AppCompatActivity() {
         uname = intent.getStringExtra("uname")!!
         val dept = intent.getStringExtra("dept")!!
         subj = intent.getStringExtra("subj")!!
+        val unit = intent.getStringExtra("unit")!!
         val level = intent.getIntExtra("level", -1) + 1
 
         if (ConnectivityUtils.isConnected(this@DisplayQuestions)) {
-            webService.getQuestions(dept, subj, level, callback)
+            webService.getQuestions(dept, subj, unit, level, callback)
         } else {
             val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this, R.drawable.ic_warning_black_24dp)!!)
             DrawableCompat.setTint(drawable, ContextCompat.getColor(this, R.color.colorPrimary))

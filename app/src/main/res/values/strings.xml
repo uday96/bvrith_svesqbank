@@ -1,6 +1,7 @@
 <resources>
 
     <string name="app_name">BVRITH SVESQBank</string>
+    <string name="title">SVES Question Bank</string>
 
     <string name="login_username">Login Mail ID</string>
     <string name="button_login">Login</string>
@@ -17,6 +18,7 @@
         <item>SVECW</item>
         <item>VIT</item>
         <item>BVRITN</item>
+        <item>SBSP</item>
     </string-array>
     <string name="signup_role_prompt">Choose Role</string>
     <string-array name="signup_role">
@@ -47,6 +49,15 @@
     <string name="button_fetch_que">Get Questions</string>
 
     <string name="subj_prompt">Choose Subject</string>
+    <string name="unit_prompt">Choose Unit</string>
+    <string-array name="unit_list">
+        <item>All</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
     <string name="level_prompt">Choose Level</string>
     <string-array name="level_list">
         <item>Easy</item>
@@ -58,8 +69,14 @@
     <string name="button_clear">Clear</string>
     <string name="button_create">Create</string>
     <string name="button_submit">Submit</string>
-    <string name="title">SVES Question Bank</string>
+
     <string name="text_error_msg">Field cannot be empty</string>
     <string name="email_error_msg">Invalid Email ID</string>
+    <string name="pwd_error_msg">Password does not match</string>
+
+    <string name="resetpwd_reset">Reset</string>
+
+    <string name="pwd_new">New Password</string>
+    <string name="pwd_confirm">Confirm Password</string>
 
 </resources>

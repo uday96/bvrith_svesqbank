@@ -35,6 +35,7 @@
         <item>EEE</item>
         <item>MECH</item>
         <item>CIVIL</item>
+        <item>MCA</item>
     </string-array>
     <string name="signup_sec_prompt">Choose Section</string>
     <string-array name="signup_sec">
